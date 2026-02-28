@@ -17,6 +17,7 @@ const Sidebar = ({ user, setUser }) => {
         { name: 'Disease Detect', icon: Bug, path: '/disease-detect' },
         { name: 'Market Prices', icon: TrendingUp, path: '/market-prices' },
         { name: 'Weather', icon: CloudRain, path: '/weather' },
+        { name: 'Profit Calc', icon: TrendingUp, path: '/profit' },
     ];
 
     return (

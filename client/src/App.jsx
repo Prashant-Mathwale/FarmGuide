@@ -10,7 +10,10 @@ import CropRec from './pages/CropRec';
 import DiseaseDetect from './pages/DiseaseDetect';
 import MarketPrices from './pages/MarketPrices';
 import Weather from './pages/Weather';
+import ProfitCalculator from './pages/ProfitCalculator';
 import Layout from './components/Layout';
+
+import Chatbot from './components/Chatbot';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -47,7 +50,11 @@ function App() {
           <Route path="/disease-detect" element={user ? <Layout user={user} setUser={setUser}><DiseaseDetect /></Layout> : <Navigate to="/login" />} />
           <Route path="/market-prices" element={user ? <Layout user={user} setUser={setUser}><MarketPrices /></Layout> : <Navigate to="/login" />} />
           <Route path="/weather" element={user ? <Layout user={user} setUser={setUser}><Weather /></Layout> : <Navigate to="/login" />} />
+          <Route path="/profit" element={user ? <Layout user={user} setUser={setUser}><ProfitCalculator /></Layout> : <Navigate to="/login" />} />
         </Routes>
+
+        {/* Global Chatbot Widget (Only show if logged in, or everywhere if you prefer - here we show if logged in to avoid cluttering landing) */}
+        {user && <Chatbot />}
       </div>
     </Router>
   );

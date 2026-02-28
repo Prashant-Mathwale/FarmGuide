@@ -37,13 +37,23 @@ function DiseaseDetect() {
         if (!selectedImage) return;
         setLoading(true);
         try {
-            const res = await api.post('/ml/disease-detect', {});
+            const formData = new FormData();
+            formData.append('image', selectedImage);
+
+            const res = await api.post('/ml/disease-detect', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            // Simulate slight delay for the premium "scanning" animation feel
             setTimeout(() => {
                 setResult(res.data);
                 setLoading(false);
-            }, 1500);
+            }, 1200);
         } catch (err) {
-            alert('Detection failed');
+            console.error('Detection Error:', err);
+            alert('Detection failed. Please make sure the ML server is running.');
             setLoading(false);
         }
     };
@@ -134,7 +144,7 @@ function DiseaseDetect() {
                                             </div>
                                             <div className="text-right">
                                                 <div className="inline-flex items-center px-3 py-1 bg-red-500/10 border border-red-500/20 text-red-400 rounded-full text-sm font-bold">
-                                                    {(result.confidenceScore * 100).toFixed(1)}% Conf
+                                                    {Number(result.confidenceScore).toFixed(1)}% Conf
                                                 </div>
                                             </div>
                                         </div>

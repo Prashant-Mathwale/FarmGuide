@@ -108,6 +108,19 @@ function Dashboard() {
                         <p className="text-sm text-slate-400">Hyper-local forecasting & conditions.</p>
                     </motion.div>
                 </Link>
+
+                <Link to="/profit">
+                    <motion.div variants={itemVariants} className="glass-card p-6 cursor-pointer group h-full hover:border-yellow-500/30 hover:bg-slate-800/80 transition-all">
+                        <div className="flex justify-between items-start mb-4">
+                            <div className="w-12 h-12 rounded-xl bg-yellow-500/20 flex items-center justify-center text-yellow-400 group-hover:scale-110 transition-transform">
+                                <TrendingUp size={24} />
+                            </div>
+                            <ChevronRight size={20} className="text-slate-500 group-hover:text-yellow-400 group-hover:translate-x-1 transition-all" />
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-2">Profit Calc</h3>
+                        <p className="text-sm text-slate-400">AI-powered farm financial estimations.</p>
+                    </motion.div>
+                </Link>
             </motion.div>
 
             {/* Chart Section */}

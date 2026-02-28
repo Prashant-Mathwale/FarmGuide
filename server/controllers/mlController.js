@@ -1,5 +1,8 @@
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env.local') });
 const SoilData = require('../models/SoilData');
 const axios = require('axios');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 const getCropRecommendation = async (req, res) => {
     const { N_level, P_level, K_level, pH_value, moisture, temperature, rainfall } = req.body;
@@ -44,18 +47,75 @@ const getCropRecommendation = async (req, res) => {
     }
 };
 
+const FormData = require('form-data');
+
 const detectDisease = async (req, res) => {
-    // In a real scenario, handle actual image upload (multer) and send to python ML model.
     try {
-        // Mock ML output
+        if (!req.file) {
+            return res.status(400).json({ success: false, message: 'Please upload an image' });
+        }
+
+        // Prepare Form Data for Python Microservice
+        const form = new FormData();
+        form.append('file', req.file.buffer, {
+            filename: req.file.originalname,
+            contentType: req.file.mimetype,
+        });
+
+        const formHeaders = form.getHeaders();
+        const contentLength = form.getLengthSync();
+
+        // Call the Python FastAPI microservice
+        const pythonApiRes = await axios.post('http://127.0.0.1:8000/predict_disease', form, {
+            headers: {
+                ...formHeaders,
+                'Content-Length': contentLength
+            },
+        });
+
+        if (!pythonApiRes.data.success) {
+            throw new Error(pythonApiRes.data.message || 'Failed to detect disease from ML server');
+        }
+
+        let suggestedAction = pythonApiRes.data.treatment;
+        const detectedDisease = pythonApiRes.data.disease;
+
+        // Use Gemini for dynamic treatment if it's an actual disease
+        const isHealthy = detectedDisease && detectedDisease.toLowerCase().includes('healthy');
+
+        if (!isHealthy) {
+            try {
+                if (process.env.GEMINI_API_KEY) {
+                    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+                    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+                    const prompt = `A farmer's crop was just diagnosed with ${detectedDisease} by a CNN model. Provide a very concise, practical, and direct treatment recommendation. Example format: "Spray Mancozeb 2 grams per liter in the evening. Repeat after 7 days." Keep it to 1 or 2 sentences max.`;
+
+                    const result = await model.generateContent(prompt);
+                    const responseText = result.response.text();
+
+                    if (responseText) {
+                        suggestedAction = responseText.trim();
+                    }
+                } else {
+                    console.warn("GEMINI_API_KEY is missing, falling back to static treatment.");
+                    suggestedAction = "[DEBUG] Error: GEMINI_API_KEY is undefined in mlController.js";
+                }
+            } catch (geminiError) {
+                console.error("Gemini Treatment Generation Error Details:", geminiError.message || geminiError);
+                console.error("Gemini Stack:", geminiError.stack);
+                suggestedAction = `[DEBUG] Gemini Error: ${geminiError.message}`;
+            }
+        }
+
         res.json({
             success: true,
-            detectedDisease: 'Early Blight',
-            confidenceScore: 0.92,
-            suggestedAction: 'Apply Copper Oxychloride at 2g/L'
+            detectedDisease: detectedDisease,
+            confidenceScore: pythonApiRes.data.confidence,
+            suggestedAction: suggestedAction
         });
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+        console.error("Disease Detection Error:", error.message);
+        res.status(500).json({ success: false, message: 'Disease detection failed. Is the Python ML server running?' });
     }
 };
 
