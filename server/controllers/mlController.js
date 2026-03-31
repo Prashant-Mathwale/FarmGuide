@@ -123,4 +123,26 @@ const detectDisease = async (req, res) => {
     }
 };
 
-module.exports = { getCropRecommendation, detectDisease };
+const predictPest = async (req, res) => {
+    try {
+        const payload = req.body;
+        
+        // Call the Python FastAPI microservice
+        const pythonApiRes = await axios.post('http://127.0.0.1:8000/predict_pest', payload);
+
+        if (!pythonApiRes.data.success) {
+            throw new Error(pythonApiRes.data.message || 'Failed to get pest prediction from ML server');
+        }
+
+        res.json({
+            success: true,
+            pest: pythonApiRes.data.pest,
+            probability: pythonApiRes.data.probability
+        });
+    } catch (error) {
+        console.error("Pest Prediction Error:", error.message);
+        res.status(500).json({ success: false, message: 'Pest prediction failed. ' + error.message });
+    }
+};
+
+module.exports = { getCropRecommendation, detectDisease, predictPest };

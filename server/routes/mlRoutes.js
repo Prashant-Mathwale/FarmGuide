@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const { getCropRecommendation, detectDisease } = require('../controllers/mlController');
+const { getCropRecommendation, detectDisease, predictPest } = require('../controllers/mlController');
 const { protect } = require('../middleware/auth');
 
 // Configure Multer for memory storage
@@ -10,5 +10,6 @@ const upload = multer({ storage: storage });
 
 router.post('/crop-recommendation', protect, getCropRecommendation);
 router.post('/disease-detect', protect, upload.single('image'), detectDisease);
+router.post('/pest-predict', protect, predictPest);
 
 module.exports = router;

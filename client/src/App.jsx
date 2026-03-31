@@ -12,6 +12,7 @@ import Weather from './pages/Weather';
 import Irrigation from './pages/Irrigation';
 import Schemes from './pages/Schemes';
 import Fertilizer from './pages/Fertilizer';
+import PestPrediction from './pages/PestPrediction';
 import Layout from './components/Layout';
 import Chatbot from './components/Chatbot';
 
@@ -52,6 +53,7 @@ function App() {
           <Route path="/irrigation" element={user ? <Layout user={user} setUser={setUser}><Irrigation /></Layout> : <Navigate to="/login" replace />} />
           <Route path="/schemes" element={user ? <Layout user={user} setUser={setUser}><Schemes /></Layout> : <Navigate to="/login" replace />} />
           <Route path="/fertilizer" element={user ? <Layout user={user} setUser={setUser}><Fertilizer /></Layout> : <Navigate to="/login" replace />} />
+          <Route path="/pest-predict" element={user ? <Layout user={user} setUser={setUser}><PestPrediction /></Layout> : <Navigate to="/login" replace />} />
           
           {/* Fallback Catch-all Route */}
           <Route path="*" element={<Navigate to={user ? "/dashboard" : "/"} replace />} />

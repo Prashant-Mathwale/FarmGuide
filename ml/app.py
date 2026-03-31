@@ -110,6 +110,23 @@ except FileNotFoundError:
     print("Warning: irrigation_model.pkl not found. Please run train_irrigation_model.py first.")
     irrigation_model = None
 
+# Load Pest Models
+try:
+    with open('models/pest_classifier.pkl', 'rb') as f:
+        pest_classifier = pickle.load(f)
+    with open('models/pest_regressor.pkl', 'rb') as f:
+        pest_regressor = pickle.load(f)
+    with open('models/pest_crop_encoder.pkl', 'rb') as f:
+        pest_crop_encoder = pickle.load(f)
+    with open('models/pest_location_encoder.pkl', 'rb') as f:
+        pest_location_encoder = pickle.load(f)
+except FileNotFoundError:
+    print("Warning: Pest prediction models not found. Please run train_pest_model.py first.")
+    pest_classifier = None
+    pest_regressor = None
+    pest_crop_encoder = None
+    pest_location_encoder = None
+
 class SoilData(BaseModel):
     N: float
     P: float
@@ -266,6 +283,54 @@ class RiskData(BaseModel):
     rainfall: float
     pesticides: float
     crop: str
+
+class PestData(BaseModel):
+    Temperature_C: float
+    Humidity_percent: float
+    Rainfall_mm: float
+    Soil_pH: float
+    Nitrogen_N: float
+    Phosphorus_P: float
+    Potassium_K: float
+    Crop_Type: str
+    Location: str
+
+@app.post("/predict_pest")
+async def predict_pest(data: PestData):
+    if any(m is None for m in [pest_classifier, pest_regressor, pest_crop_encoder, pest_location_encoder]):
+        return {"success": False, "message": "Pest prediction models not loaded."}
+        
+    try:
+        # Encode categorical variables
+        try:
+            crop_encoded = pest_crop_encoder.transform([data.Crop_Type])[0]
+        except ValueError:
+            crop_encoded = 0 # Fallback
+            
+        try:
+            location_encoded = pest_location_encoder.transform([data.Location])[0]
+        except ValueError:
+            location_encoded = 0 # Fallback
+            
+        features = np.array([[
+            data.Temperature_C, data.Humidity_percent, data.Rainfall_mm,
+            data.Soil_pH, data.Nitrogen_N, data.Phosphorus_P, data.Potassium_K,
+            crop_encoded, location_encoded
+        ]])
+        
+        # Predict pest class
+        pest_class = pest_classifier.predict(features)[0]
+        
+        # Predict outbreak probability
+        outbreak_prob = pest_regressor.predict(features)[0]
+        
+        return {
+            "success": True,
+            "pest": str(pest_class),
+            "probability": float(outbreak_prob)
+        }
+    except Exception as e:
+        return {"success": False, "message": str(e)}
 
 @app.post("/predict_risk")
 async def predict_risk(data: RiskData):
