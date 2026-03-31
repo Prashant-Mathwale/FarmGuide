@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Sprout, Bug, TrendingUp, CloudRain, ChevronRight, Activity, AlertCircle, Droplets, Landmark } from 'lucide-react';
+import { Sprout, Bug, TrendingUp, CloudRain, ChevronRight, Activity, AlertCircle, Droplets, Landmark, ShieldAlert } from 'lucide-react';
 
 import api from '../services/api';
 
@@ -149,12 +149,13 @@ function Dashboard() {
                 </Link>
 
                 {/* Govt Schemes */}
-                <Link to="/schemes" className="lg:col-span-2">
+                <Link to="/schemes" className="lg:col-span-1">
                     <motion.div variants={itemVariants} className="glass-panel glass-card-hover rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between group h-48">
                         <div className="flex justify-between items-start">
                             <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
                                 <Landmark size={28} />
                             </div>
+                            <ChevronRight className="text-on-surface-variant/40 group-hover:text-primary transition-colors cursor-pointer" />
                         </div>
                         <div>
                             <h3 className="font-headline text-lg font-bold text-on-surface">Govt Schemes</h3>
@@ -174,6 +175,22 @@ function Dashboard() {
                         <div>
                             <h3 className="font-headline text-lg font-bold text-on-surface">Nutrient Calc</h3>
                             <p className="text-on-surface-variant text-xs mt-1">Optimized NPK ratio mapping</p>
+                        </div>
+                    </motion.div>
+                </Link>
+
+                {/* Pest Prediction */}
+                <Link to="/pest-prediction" className="lg:col-span-1">
+                    <motion.div variants={itemVariants} className="glass-panel glass-card-hover rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between group h-48">
+                        <div className="flex justify-between items-start">
+                            <div className="w-12 h-12 bg-red-500/10 rounded-2xl flex items-center justify-center text-red-400 group-hover:scale-110 transition-transform">
+                                <ShieldAlert size={28} />
+                            </div>
+                            <ChevronRight className="text-on-surface-variant/40 group-hover:text-red-400 transition-colors cursor-pointer" />
+                        </div>
+                        <div>
+                            <h3 className="font-headline text-lg font-bold text-on-surface">Pest Predict</h3>
+                            <p className="text-on-surface-variant text-xs mt-1">AI-driven pest & disease risk map</p>
                         </div>
                     </motion.div>
                 </Link>
