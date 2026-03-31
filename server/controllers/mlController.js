@@ -8,10 +8,14 @@ const getCropRecommendation = async (req, res) => {
     const { N_level, P_level, K_level, pH_value, moisture, temperature, rainfall } = req.body;
     try {
         // Save the input data
-        const soilData = await SoilData.create({
-            userId: req.user._id,
-            N_level, P_level, K_level, pH_value, moisture
-        });
+        let soilDataId = null;
+        if (req.user && req.user._id) {
+            const soilData = await SoilData.create({
+                userId: req.user._id,
+                N_level, P_level, K_level, pH_value, moisture
+            });
+            soilDataId = soilData._id;
+        }
 
         // Prepare data for Python Microservice
         const payload = {
@@ -39,11 +43,11 @@ const getCropRecommendation = async (req, res) => {
         res.json({
             success: true,
             recommendedCrops: recommendations,
-            soilDataId: soilData._id
+            soilDataId: soilDataId
         });
     } catch (error) {
-        console.error("ML Prediction Error:", error.message);
-        res.status(500).json({ success: false, message: 'Crop recommendation failed. Is the Python ML server running?' });
+        console.error("ML Prediction Error Details:", error);
+        res.status(500).json({ success: false, message: 'Crop recommendation failed. ' + error.message });
     }
 };
 
@@ -87,7 +91,7 @@ const detectDisease = async (req, res) => {
             try {
                 if (process.env.GEMINI_API_KEY) {
                     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-                    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+                    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
                     const prompt = `A farmer's crop was just diagnosed with ${detectedDisease} by a CNN model. Provide a very concise, practical, and direct treatment recommendation. Example format: "Spray Mancozeb 2 grams per liter in the evening. Repeat after 7 days." Keep it to 1 or 2 sentences max.`;
 
                     const result = await model.generateContent(prompt);
@@ -98,7 +102,7 @@ const detectDisease = async (req, res) => {
                     }
                 } else {
                     console.warn("GEMINI_API_KEY is missing, falling back to static treatment.");
-                    suggestedAction = "[DEBUG] Error: GEMINI_API_KEY is undefined in mlController.js";
+                    // Keep suggestedAction from Python as the static treatment
                 }
             } catch (geminiError) {
                 console.error("Gemini Treatment Generation Error Details:", geminiError.message || geminiError);

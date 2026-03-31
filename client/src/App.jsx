@@ -9,7 +9,6 @@ import CropRec from './pages/CropRec';
 import DiseaseDetect from './pages/DiseaseDetect';
 import MarketPrices from './pages/MarketPrices';
 import Weather from './pages/Weather';
-import ProfitCalculator from './pages/ProfitCalculator';
 import Irrigation from './pages/Irrigation';
 import Schemes from './pages/Schemes';
 import Fertilizer from './pages/Fertilizer';
@@ -33,11 +32,11 @@ function App() {
     }
   }, []);
 
-  if (loading) return <div className="bg-[#0E1729] min-h-screen text-white flex items-center justify-center">Loading FarmGuide...</div>;
+  if (loading) return <div className="bg-transparent min-h-screen text-white flex items-center justify-center">Loading FarmGuide...</div>;
 
   return (
     <Router>
-      <div className="bg-[#0E1729] min-h-screen text-slate-200 font-sans">
+      <div className="bg-transparent min-h-screen text-slate-200 font-sans">
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={!user ? <Landing /> : <Navigate to="/dashboard" replace />} />
@@ -50,7 +49,6 @@ function App() {
           <Route path="/disease-detect" element={user ? <Layout user={user} setUser={setUser}><DiseaseDetect /></Layout> : <Navigate to="/login" replace />} />
           <Route path="/market-prices" element={user ? <Layout user={user} setUser={setUser}><MarketPrices /></Layout> : <Navigate to="/login" replace />} />
           <Route path="/weather" element={user ? <Layout user={user} setUser={setUser}><Weather /></Layout> : <Navigate to="/login" replace />} />
-          <Route path="/profit" element={user ? <Layout user={user} setUser={setUser}><ProfitCalculator /></Layout> : <Navigate to="/login" replace />} />
           <Route path="/irrigation" element={user ? <Layout user={user} setUser={setUser}><Irrigation /></Layout> : <Navigate to="/login" replace />} />
           <Route path="/schemes" element={user ? <Layout user={user} setUser={setUser}><Schemes /></Layout> : <Navigate to="/login" replace />} />
           <Route path="/fertilizer" element={user ? <Layout user={user} setUser={setUser}><Fertilizer /></Layout> : <Navigate to="/login" replace />} />

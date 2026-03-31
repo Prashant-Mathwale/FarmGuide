@@ -26,32 +26,29 @@ function Login({ setAuthUser }) {
     };
 
     return (
-        <div className="min-h-screen relative overflow-hidden flex items-center justify-center p-6">
-            <div className="absolute top-1/4 left-1/4 w-[30vw] h-[30vw] bg-emerald-600/20 blur-[120px] rounded-full" />
-            <div className="absolute bottom-1/4 right-1/4 w-[30vw] h-[30vw] bg-teal-600/20 blur-[120px] rounded-full" />
-
+        <div className="min-h-screen relative overflow-hidden flex items-center justify-center p-6 bg-transparent">
             <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="w-full max-w-md z-10 glass-panel p-8"
+                className="w-full max-w-md z-10 glass-panel rounded-[2.5rem] p-10 border border-white/10"
             >
                 <div className="flex flex-col items-center justify-center mb-8">
-                    <Link to="/" className="w-14 h-14 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-emerald-500/20">
-                        <Sprout size={32} className="text-white" />
-                    </Link>
-                    <h2 className="text-3xl font-bold text-white tracking-tight">Welcome Back</h2>
-                    <p className="text-slate-400 mt-2">Log in to manage your smart farm</p>
+                    <div className="w-14 h-14 bg-primary-container/20 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-primary/20 border border-primary/30">
+                        <Sprout size={32} className="text-primary" />
+                    </div>
+                    <h2 className="text-3xl font-headline font-bold text-on-surface tracking-tight">Welcome Back</h2>
+                    <p className="text-on-surface-variant font-body mt-2">Log in to manage your smart farm</p>
                 </div>
 
                 {error && (
-                    <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-3 rounded-lg mb-6 text-sm flex items-center justify-center">
+                    <div className="bg-error/10 border border-error/20 text-error p-3 rounded-xl mb-6 text-xs font-bold text-center uppercase tracking-wider">
                         {error}
                     </div>
                 )}
 
-                <form onSubmit={handleLogin} className="space-y-5">
+                <form onSubmit={handleLogin} className="space-y-6">
                     <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">Mobile Number</label>
+                        <label className="block text-xs font-bold text-primary uppercase tracking-widest mb-2 ml-1">Mobile Number</label>
                         <input
                             type="text"
                             className="input-field"
@@ -62,7 +59,7 @@ function Login({ setAuthUser }) {
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">Password</label>
+                        <label className="block text-xs font-bold text-primary uppercase tracking-widest mb-2 ml-1">Password</label>
                         <input
                             type="password"
                             className="input-field"
@@ -73,14 +70,14 @@ function Login({ setAuthUser }) {
                         />
                     </div>
 
-                    <button type="submit" disabled={loading} className="w-full btn-primary text-lg mt-2">
+                    <button type="submit" disabled={loading} className="w-full btn-primary text-sm h-12 uppercase tracking-widest font-black mt-2">
                         {loading ? 'Authenticating...' : 'Sign In'}
                     </button>
                 </form>
 
-                <p className="mt-8 text-center text-slate-400 text-sm">
+                <p className="mt-8 text-center text-on-surface-variant text-sm">
                     Don't have an account?{' '}
-                    <Link to="/register" className="text-emerald-400 hover:text-emerald-300 font-medium transition-colors">
+                    <Link to="/register" className="text-primary hover:text-primary/80 font-bold transition-colors">
                         Create an account
                     </Link>
                 </p>

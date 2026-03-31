@@ -48,133 +48,134 @@ function Dashboard() {
 
     return (
         <div className="w-full max-w-7xl mx-auto">
-            <header className="mb-10 flex justify-between items-end">
-                <div>
-                    <motion.h2
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="text-4xl font-bold tracking-tight text-white mb-2"
-                    >
-                        Welcome back, {user?.fullName?.split(' ')[0]}
-                    </motion.h2>
-                    <motion.p
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="text-slate-400 text-lg"
-                    >
-                        Here's what's happening on your farm right now.
-                    </motion.p>
-                </div>
-            </header>
+            {/* Greeting Section */}
+            <section className="mb-10 mt-4">
+                <h2 className="font-headline text-4xl font-bold text-on-surface tracking-tight leading-tight">
+                    Welcome back, <span className="text-primary glow-text">{user?.fullName?.split(' ')[0]}</span>
+                </h2>
+                <p className="text-on-surface-variant font-body mt-2 max-w-2xl">
+                    Your high-altitude diagnostic overview is ready. Field vitality is currently at <span className="text-primary font-bold">87%</span> across all sectors.
+                </p>
+            </section>
 
+            {/* Bento Grid Feature Cards */}
             <motion.div
                 variants={containerVariants}
                 initial="hidden"
                 animate="show"
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10"
             >
-                <Link to="/crop-rec">
-                    <motion.div variants={itemVariants} className="glass-card p-6 cursor-pointer group h-full">
-                        <div className="flex justify-between items-start mb-4">
-                            <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
-                                <Sprout size={24} />
+                {/* Crop Recommendation */}
+                <Link to="/crop-rec" className="lg:col-span-1">
+                    <motion.div variants={itemVariants} className="glass-panel glass-card-hover rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between group h-48">
+                        <div className="flex justify-between items-start">
+                            <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                                <Sprout size={28} />
                             </div>
-                            <ChevronRight size={20} className="text-slate-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" />
+                            <ChevronRight className="text-on-surface-variant/40 group-hover:text-primary transition-colors cursor-pointer" />
                         </div>
-                        <h3 className="text-xl font-bold text-white mb-2">Crop Recs</h3>
-                        <p className="text-sm text-slate-400">Get AI-driven crop suggestions based on active soil data.</p>
+                        <div>
+                            <h3 className="font-headline text-lg font-bold text-on-surface">Crop Recs</h3>
+                            <p className="text-on-surface-variant text-xs mt-1">Predictive seasonal analysis</p>
+                        </div>
                     </motion.div>
                 </Link>
 
-                <Link to="/disease-detect">
-                    <motion.div variants={itemVariants} className="glass-card p-6 cursor-pointer group h-full">
-                        <div className="flex justify-between items-start mb-4">
-                            <div className="w-12 h-12 rounded-xl bg-teal-500/20 flex items-center justify-center text-teal-400 group-hover:scale-110 transition-transform">
-                                <Bug size={24} />
+                {/* Disease Detection */}
+                <Link to="/disease-detect" className="lg:col-span-1">
+                    <motion.div variants={itemVariants} className="glass-panel glass-card-hover rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between group h-48">
+                        <div className="flex justify-between items-start">
+                            <div className="w-12 h-12 bg-error/10 rounded-2xl flex items-center justify-center text-error group-hover:scale-110 transition-transform">
+                                <Bug size={28} />
                             </div>
-                            <ChevronRight size={20} className="text-slate-500 group-hover:text-teal-400 group-hover:translate-x-1 transition-all" />
+                            <ChevronRight className="text-on-surface-variant/40 group-hover:text-error transition-colors cursor-pointer" />
                         </div>
-                        <h3 className="text-xl font-bold text-white mb-2">Disease Detect</h3>
-                        <p className="text-sm text-slate-400">Scan leaves to instantly identify health issues.</p>
+                        <div>
+                            <h3 className="font-headline text-lg font-bold text-on-surface">Disease Detect</h3>
+                            <p className="text-on-surface-variant text-xs mt-1">AI-powered foliage scanning</p>
+                        </div>
                     </motion.div>
                 </Link>
 
-                <Link to="/market-prices">
-                    <motion.div variants={itemVariants} className="glass-card p-6 cursor-pointer group h-full">
-                        <div className="flex justify-between items-start mb-4">
-                            <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
-                                <TrendingUp size={24} />
+                {/* Market Insights */}
+                <Link to="/market-prices" className="lg:col-span-1">
+                    <motion.div variants={itemVariants} className="glass-panel glass-card-hover rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between group h-48">
+                        <div className="flex justify-between items-start">
+                            <div className="w-12 h-12 bg-secondary/10 rounded-2xl flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
+                                <TrendingUp size={28} />
                             </div>
-                            <ChevronRight size={20} className="text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
+                            <ChevronRight className="text-on-surface-variant/40 group-hover:text-secondary transition-colors cursor-pointer" />
                         </div>
-                        <h3 className="text-xl font-bold text-white mb-2">Market Insights</h3>
-                        <p className="text-sm text-slate-400">Live API integration with local mandi commodity prices.</p>
+                        <div>
+                            <h3 className="font-headline text-lg font-bold text-on-surface">Market Insights</h3>
+                            <p className="text-on-surface-variant text-xs mt-1">Real-time commodity tracking</p>
+                        </div>
                     </motion.div>
                 </Link>
 
-                <Link to="/weather">
-                    <motion.div variants={itemVariants} className="glass-card p-6 cursor-pointer group h-full hover:border-sky-500/30 hover:bg-slate-800/80 transition-all">
-                        <div className="flex justify-between items-start mb-4">
-                            <div className="w-12 h-12 rounded-xl bg-sky-500/20 flex items-center justify-center text-sky-400 group-hover:scale-110 transition-transform">
-                                <CloudRain size={24} />
+                {/* Weather */}
+                <Link to="/weather" className="lg:col-span-1">
+                    <motion.div variants={itemVariants} className="glass-panel glass-card-hover rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between group h-48">
+                        <div className="flex justify-between items-start">
+                            <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                                <CloudRain size={28} />
                             </div>
-                            <ChevronRight size={20} className="text-slate-500 group-hover:text-sky-400 group-hover:translate-x-1 transition-all" />
+                            <div className="text-right">
+                                <p className="text-xl font-headline font-bold text-on-surface">28°C</p>
+                                <p className="text-[10px] text-primary">Clear Sky</p>
+                            </div>
                         </div>
-                        <h3 className="text-xl font-bold text-white mb-2">Weather</h3>
-                        <p className="text-sm text-slate-400">Hyper-local forecasting & conditions.</p>
+                        <div>
+                            <h3 className="font-headline text-lg font-bold text-on-surface">Weather</h3>
+                            <p className="text-on-surface-variant text-xs mt-1">Localized micro-climate data</p>
+                        </div>
                     </motion.div>
                 </Link>
 
-                <Link to="/profit">
-                    <motion.div variants={itemVariants} className="glass-card p-6 cursor-pointer group h-full hover:border-yellow-500/30 hover:bg-slate-800/80 transition-all">
-                        <div className="flex justify-between items-start mb-4">
-                            <div className="w-12 h-12 rounded-xl bg-yellow-500/20 flex items-center justify-center text-yellow-400 group-hover:scale-110 transition-transform">
-                                <TrendingUp size={24} />
+                {/* Irrigation */}
+                <Link to="/irrigation" className="lg:col-span-1">
+                    <motion.div variants={itemVariants} className="glass-panel glass-card-hover rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between group h-48">
+                        <div className="flex justify-between items-start">
+                            <div className="w-12 h-12 bg-blue-400/10 rounded-2xl flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+                                <Droplets size={28} />
                             </div>
-                            <ChevronRight size={20} className="text-slate-500 group-hover:text-yellow-400 group-hover:translate-x-1 transition-all" />
+                            <ChevronRight className="text-on-surface-variant/40 group-hover:text-blue-400 transition-colors cursor-pointer" />
                         </div>
-                        <h3 className="text-xl font-bold text-white mb-2">Profit Calc</h3>
-                        <p className="text-sm text-slate-400">AI-powered farm financial estimations.</p>
+                        <div>
+                            <h3 className="font-headline text-lg font-bold text-on-surface">Irrigation</h3>
+                            <p className="text-on-surface-variant text-xs mt-1">Smart valve control & scheduling</p>
+                        </div>
                     </motion.div>
                 </Link>
 
-                <Link to="/irrigation">
-                    <motion.div variants={itemVariants} className="glass-card p-6 cursor-pointer group h-full hover:border-cyan-500/30 hover:bg-slate-800/80 transition-all">
-                        <div className="flex justify-between items-start mb-4">
-                            <div className="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
-                                <Droplets size={24} />
+                {/* Govt Schemes */}
+                <Link to="/schemes" className="lg:col-span-2">
+                    <motion.div variants={itemVariants} className="glass-panel glass-card-hover rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between group h-48">
+                        <div className="flex justify-between items-start">
+                            <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                                <Landmark size={28} />
                             </div>
-                            <ChevronRight size={20} className="text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all" />
+                            <div className="bg-primary-container/20 text-primary text-[10px] font-bold px-2 py-1 rounded-lg uppercase tracking-wider">Active Policy Support</div>
                         </div>
-                        <h3 className="text-xl font-bold text-white mb-2">Irrigation</h3>
-                        <p className="text-sm text-slate-400">Smart water management and daily scheduling.</p>
+                        <div>
+                            <h3 className="font-headline text-lg font-bold text-on-surface">Govt Schemes</h3>
+                            <p className="text-on-surface-variant text-xs mt-1">Financial aid and policy tracking for rural agronomists</p>
+                        </div>
                     </motion.div>
                 </Link>
 
-                <Link to="/schemes">
-                    <motion.div variants={itemVariants} className="glass-card p-6 cursor-pointer group h-full hover:border-purple-500/30 hover:bg-slate-800/80 transition-all">
-                        <div className="flex justify-between items-start mb-4">
-                            <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
-                                <Landmark size={24} />
+                {/* Fertilizer Calc */}
+                <Link to="/fertilizer" className="lg:col-span-1">
+                    <motion.div variants={itemVariants} className="glass-panel glass-card-hover rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between group h-48">
+                        <div className="flex justify-between items-start">
+                            <div className="w-12 h-12 bg-secondary/10 rounded-2xl flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
+                                <Activity size={28} />
                             </div>
-                            <ChevronRight size={20} className="text-slate-500 group-hover:text-purple-400 group-hover:translate-x-1 transition-all" />
                         </div>
-                        <h3 className="text-xl font-bold text-white mb-2">Govt Schemes</h3>
-                        <p className="text-sm text-slate-400">Browse eligible agricultural grants and policies.</p>
-                    </motion.div>
-                </Link>
-
-                <Link to="/fertilizer">
-                    <motion.div variants={itemVariants} className="glass-card p-6 cursor-pointer group h-full hover:border-pink-500/30 hover:bg-slate-800/80 transition-all">
-                        <div className="flex justify-between items-start mb-4">
-                            <div className="w-12 h-12 rounded-xl bg-pink-500/20 flex items-center justify-center text-pink-400 group-hover:scale-110 transition-transform">
-                                <Activity size={24} />
-                            </div>
-                            <ChevronRight size={20} className="text-slate-500 group-hover:text-pink-400 group-hover:translate-x-1 transition-all" />
+                        <div>
+                            <h3 className="font-headline text-lg font-bold text-on-surface">Nutrient Calc</h3>
+                            <p className="text-on-surface-variant text-xs mt-1">Optimized NPK ratio mapping</p>
                         </div>
-                        <h3 className="text-xl font-bold text-white mb-2">Fertilizer Calc</h3>
-                        <p className="text-sm text-slate-400">Compute required Urea and DAP based on NPK soil data.</p>
                     </motion.div>
                 </Link>
             </motion.div>
@@ -184,65 +185,85 @@ function Dashboard() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="glass-panel p-8"
+                className="glass-panel rounded-[2.5rem] p-8 min-h-[400px] flex flex-col mb-10"
             >
-                {loading || !trendMetrics ? (
-                    <div className="h-72 w-full flex items-center justify-center">
-                        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500"></div>
+                {loading ? (
+                    <div className="flex-1 flex flex-col items-center justify-center">
+                        <div className="animate-spin rounded-full h-14 w-14 border-t-2 border-b-2 border-primary"></div>
+                        <p className="text-on-surface-variant text-sm mt-4">Initializing Data Stream...</p>
+                    </div>
+                ) : !trendMetrics ? (
+                    <div className="glass-card flex-1 rounded-3xl border border-white/5 flex flex-col items-center justify-center relative overflow-hidden group">
+                        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, #78dc77 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
+                        <div className="relative z-10 text-center">
+                            <div className="w-20 h-20 bg-primary/5 rounded-full flex items-center justify-center mb-4 mx-auto border border-primary/20 group-hover:scale-110 transition-transform duration-500">
+                                <TrendingUp size={40} className="text-primary/40" />
+                            </div>
+                            <h4 className="text-on-surface font-headline text-xl font-bold">Awaiting Market Data</h4>
+                            <p className="text-on-surface-variant text-sm mt-2 max-w-xs mx-auto">Real-time commodity streams are temporarily unavailable. Initializing fallback diagnostic...</p>
+                        </div>
                     </div>
                 ) : (
                     <>
-                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                        <div className="flex items-center justify-between mb-8">
                             <div>
-                                <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                                    Wheat Price Volatility
-                                    {trendMetrics.volatility === 'Stable' ? (
-                                        <span className="px-2 py-1 bg-emerald-500/10 text-emerald-400 text-xs rounded-full border border-emerald-500/20 flex items-center gap-1">
-                                            <Activity size={12} /> Stable
-                                        </span>
-                                    ) : (
-                                        <span className="px-2 py-1 bg-amber-500/10 text-amber-400 text-xs rounded-full border border-amber-500/20 flex items-center gap-1">
-                                            <AlertCircle size={12} /> Fluctuating
-                                        </span>
-                                    )}
-                                </h3>
-                                <p className="text-sm text-slate-400">7-Day Simple Moving Average (SMA: ₹{trendMetrics.sma})</p>
-                            </div>
-                            <div className="flex flex-col items-end">
-                                <div className={`text-sm font-semibold mb-1 ${trendMetrics.recommendation.includes('sell') ? 'text-emerald-400' :
-                                        trendMetrics.recommendation.includes('Hold') ? 'text-amber-400' : 'text-blue-400'
+                                <h3 className="font-headline text-2xl font-bold text-on-surface flex items-center gap-3">
+                                    Wheat Price Terminal
+                                    <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border ${
+                                        trendMetrics.volatility === 'Stable' 
+                                        ? "bg-primary/10 border-primary/30 text-primary" 
+                                        : "bg-yellow-500/10 border-yellow-500/30 text-yellow-500"
                                     }`}>
-                                    {trendMetrics.recommendation}
-                                </div>
-                                <div className="text-2xl font-bold text-white">
-                                    ₹{trendMetrics.current} <span className="text-sm text-slate-400 font-normal">/ quintal</span>
-                                </div>
+                                        {trendMetrics.volatility}
+                                    </span>
+                                </h3>
+                                <p className="text-on-surface-variant text-sm mt-1">Multi-spectral commodity trends and SMA diagnostic</p>
+                            </div>
+                            <div className="text-right">
+                                <p className="text-primary text-xs font-bold uppercase tracking-widest mb-1">{trendMetrics.recommendation}</p>
+                                <p className="text-3xl font-headline font-bold text-on-surface">₹{trendMetrics.current}</p>
                             </div>
                         </div>
 
-                        <div className="h-72 w-full">
+                        <div className="glass-card flex-1 h-80 rounded-3xl border border-white/5 relative overflow-hidden">
+                            <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, #78dc77 1px, transparent 0)', backgroundSize: '30px 30px' }}></div>
                             <ResponsiveContainer width="100%" height="100%">
-                                <AreaChart data={trendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                                <AreaChart data={trendData} margin={{ top: 20, right: 20, left: 0, bottom: 0 }}>
                                     <defs>
                                         <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor={trendMetrics.volatility === 'Stable' ? "#10B981" : "#F59E0B"} stopOpacity={0.3} />
-                                            <stop offset="95%" stopColor={trendMetrics.volatility === 'Stable' ? "#10B981" : "#F59E0B"} stopOpacity={0} />
+                                            <stop offset="5%" stopColor="#78dc77" stopOpacity={0.3} />
+                                            <stop offset="95%" stopColor="#78dc77" stopOpacity={0} />
                                         </linearGradient>
                                     </defs>
                                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-                                    <XAxis dataKey="name" stroke="#94A3B8" tick={{ fill: '#94A3B8' }} axisLine={false} tickLine={false} />
-                                    <YAxis stroke="#94A3B8" tick={{ fill: '#94A3B8' }} axisLine={false} tickLine={false} domain={['auto', 'auto']} />
+                                    <XAxis dataKey="name" hide />
+                                    <YAxis hide domain={['auto', 'auto']} />
                                     <Tooltip
-                                        contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.9)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff' }}
-                                        itemStyle={{ color: trendMetrics.volatility === 'Stable' ? '#34D399' : '#FBBF24', fontWeight: 'bold' }}
+                                        contentStyle={{ backgroundColor: '#10150f', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '12px' }}
+                                        itemStyle={{ color: '#78dc77' }}
                                     />
-                                    <Area type="monotone" dataKey="price" stroke={trendMetrics.volatility === 'Stable' ? "#10B981" : "#F59E0B"} strokeWidth={3} fillOpacity={1} fill="url(#colorPrice)" />
+                                    <Area type="monotone" dataKey="price" stroke="#78dc77" strokeWidth={3} fillOpacity={1} fill="url(#colorPrice)" />
                                 </AreaChart>
                             </ResponsiveContainer>
                         </div>
                     </>
                 )}
             </motion.div>
+
+            {/* Footer Metric Bar */}
+            <footer className="glass-panel rounded-2xl px-8 py-4 flex items-center justify-between mb-8">
+                <div className="flex items-center gap-8">
+                    <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                        <span className="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">System Status: Nominal</span>
+                    </div>
+                </div>
+                <div className="flex items-center gap-4 text-xs font-bold text-on-surface-variant">
+                    <span>VER: 4.8.2-OMEGA</span>
+                    <span className="text-primary/40">|</span>
+                    <span>SESSION: STABLE</span>
+                </div>
+            </footer>
         </div>
     );
 }

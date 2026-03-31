@@ -68,7 +68,7 @@ function Weather() {
                     <p className="text-slate-400 text-lg">Hyper-local agricultural forecasting using live satellite data.</p>
                 </div>
 
-                <form onSubmit={handleSearch} className="flex gap-3 bg-slate-800/80 p-2 rounded-xl border border-slate-700/50 backdrop-blur-md">
+                <form onSubmit={handleSearch} className="glass-panel flex gap-3 p-2 rounded-xl border border-slate-700/50">
                     <div className="relative">
                         <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                         <input
@@ -76,7 +76,7 @@ function Weather() {
                             placeholder="Enter City..."
                             value={searchCity}
                             onChange={(e) => setSearchCity(e.target.value)}
-                            className="pl-10 pr-4 py-2 bg-slate-900/50 border border-slate-700/50 rounded-lg text-sm text-white focus:outline-none focus:border-blue-500 w-48 md:w-64"
+                            className="input-field pl-10 pr-4 py-2 text-sm text-white w-48 md:w-64"
                         />
                     </div>
                     <button type="submit" className="bg-sky-600 hover:bg-sky-500 transition-colors text-white px-6 py-2 rounded-lg font-medium text-sm shadow-lg shadow-sky-500/20 flex items-center">
@@ -164,7 +164,7 @@ function Weather() {
                         {/* 5 Day Mini Cards */}
                         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                             {weatherData.forecast?.map((day, idx) => (
-                                <div key={idx} className="glass-card p-4 text-center hover:-translate-y-1 transition-transform border border-slate-700/50 hover:border-sky-500/30 hover:bg-slate-800/80">
+                                <div key={idx} className="glass-card p-4 text-center hover:-translate-y-1 transition-transform border border-slate-700/50 hover:border-sky-500/30">
                                     <p className="text-xs text-slate-400 font-medium tracking-wide uppercase mb-3">
                                         {new Date(day.date).toLocaleDateString('en-US', { weekday: 'short' })}
                                     </p>

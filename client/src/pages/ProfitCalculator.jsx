@@ -168,7 +168,7 @@ function ProfitCalculator() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className={`w-full py-4 mt-6 rounded-xl font-bold flex items-center justify-center transition-all ${loading ? 'bg-slate-700 text-slate-500 cursor-not-allowed' : 'bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-white shadow-[0_0_20px_rgba(79,70,229,0.4)]'}`}
+                                className={`w-full py-4 mt-6 rounded-xl font-bold flex items-center justify-center transition-all ${loading ? ' text-slate-500 cursor-not-allowed' : 'bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-white shadow-[0_0_20px_rgba(79,70,229,0.4)]'}`}
                             >
                                 {loading ? (
                                     <span className="flex items-center">
@@ -221,8 +221,8 @@ function ProfitCalculator() {
 
                                 {/* Top Row: Net Profit Hero & Risk Gauge */}
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                    <div className="md:col-span-2 bg-gradient-to-br from-indigo-900/50 to-emerald-900/30 rounded-2xl p-6 md:p-8 border border-indigo-500/30 shadow-[0_0_30px_rgba(79,70,229,0.15)] flex flex-col justify-center relative overflow-hidden">
-                                        <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+                                    <div className="glass-panel md:col-span-2 rounded-2xl p-6 md:p-8 border border-indigo-500/30 shadow-[0_0_30px_rgba(79,70,229,0.15)] flex flex-col justify-center relative overflow-hidden">
+                                        <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
                                         <p className="text-indigo-200 text-xs font-bold uppercase tracking-widest mb-2 z-10">Forecasted Net Profit</p>
                                         <h2 className={`text-5xl md:text-6xl font-black drop-shadow-md z-10 ${result.netProfit >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                                             {formatCurrency(result.netProfit)}
@@ -249,22 +249,22 @@ function ProfitCalculator() {
 
                                 {/* Metrics Grid */}
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                    <div className="glass-panel p-4 pb-5 bg-slate-800/40">
+                                    <div className="glass-panel p-4 pb-5">
                                         <p className="text-slate-500 text-xs font-bold uppercase mb-1">ML Yield Predict</p>
                                         <p className="text-xl font-bold text-white mb-1">{result.predictedYieldTons.toFixed(2)} Tons</p>
                                         <p className="text-xs text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded-md inline-block">{result.predictedYieldPerAcre.toFixed(2)} / Acre</p>
                                     </div>
-                                    <div className="glass-panel p-4 pb-5 bg-slate-800/40">
+                                    <div className="glass-panel p-4 pb-5">
                                         <p className="text-slate-500 text-xs font-bold uppercase mb-1">Mandi Price SMA</p>
                                         <p className="text-xl font-bold text-emerald-400 mb-1">{formatCurrency(result.predictedPricePerTon)}</p>
                                         <p className="text-xs text-slate-400">Predicted per Ton</p>
                                     </div>
-                                    <div className="glass-panel p-4 pb-5 bg-slate-800/40">
+                                    <div className="glass-panel p-4 pb-5">
                                         <p className="text-slate-500 text-xs font-bold uppercase mb-1">Gross Revenue</p>
                                         <p className="text-xl font-bold text-white mb-1">{formatCurrency(result.expectedRevenue)}</p>
                                         <p className="text-xs text-slate-400">Before expenses</p>
                                     </div>
-                                    <div className="glass-panel p-4 pb-5 bg-slate-800/40">
+                                    <div className="glass-panel p-4 pb-5">
                                         <p className="text-slate-500 text-xs font-bold uppercase mb-1">Break-Even Price</p>
                                         <p className="text-xl font-bold text-yellow-500 mb-1">{formatCurrency(result.breakEvenPrice)}</p>
                                         <p className="text-xs text-slate-400">Min. required per Ton</p>
@@ -313,11 +313,11 @@ function ProfitCalculator() {
                                 </div>
 
                                 {/* Dynamic Cost Breakdown Footer */}
-                                <div className="glass-panel p-5 mt-4 bg-slate-900/50">
+                                <div className="glass-panel p-5 mt-4">
                                     <h5 className="text-sm font-bold text-slate-300 mb-3 border-b border-slate-700 pb-2">Dynamic Cost Component Analysis ({formatCurrency(result.totalCost)})</h5>
                                     <div className="grid grid-cols-3 md:grid-cols-6 gap-2 text-center">
                                         {Object.entries(result.costBreakdown).map(([key, value]) => (
-                                            <div key={key} className="bg-slate-800 rounded-lg p-2">
+                                            <div key={key} className=" rounded-lg p-2">
                                                 <p className="text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-1">{key}</p>
                                                 <p className="text-sm font-semibold text-slate-200">{formatCurrency(value)}</p>
                                             </div>

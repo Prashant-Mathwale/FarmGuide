@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Search, MapPin, Tag } from 'lucide-react';
+import { Search, MapPin, Tag, TrendingUp } from 'lucide-react';
 import api from '../services/api';
 
 function MarketPrices() {
@@ -29,83 +29,105 @@ function MarketPrices() {
     const handleFilterChange = (e) => setFilters({ ...filters, [e.target.name]: e.target.value });
 
     return (
-        <div className="w-full max-w-6xl mx-auto">
-            <header className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div className="w-full max-w-7xl mx-auto">
+            <header className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-8 relative z-10">
                 <div>
-                    <h2 className="text-3xl font-bold tracking-tight text-white mb-2">Market Intelligence</h2>
-                    <p className="text-slate-400 text-lg">Real-time commodity spot prices across regional agricultural markets.</p>
+                    <motion.h2 
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-4xl font-bold tracking-tight text-white mb-3 text-glow-strong flex items-center gap-4"
+                    >
+                        <TrendingUp className="text-green-400 drop-shadow-[0_0_10px_rgba(76,175,80,0.8)]" size={36} />
+                        Market Intelligence
+                    </motion.h2>
+                    <motion.p 
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 }}
+                        className="text-white/70 text-lg tracking-wide"
+                    >
+                        Real-time commodity spot prices across regional agricultural markets.
+                    </motion.p>
                 </div>
 
-                <div className="flex gap-3 bg-slate-800/80 p-2 rounded-xl border border-slate-700/50 backdrop-blur-md">
+                <motion.div 
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="flex flex-wrap gap-4 glass-panel p-3 border-green-500/20 shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
+                >
                     <div className="relative">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-green-400" size={18} />
                         <input
                             type="text" name="cropName" placeholder="Commodity" value={filters.cropName} onChange={handleFilterChange}
-                            className="pl-10 pr-4 py-2 bg-slate-900/50 border border-slate-700/50 rounded-lg text-sm text-white focus:outline-none focus:border-blue-500 w-40"
+                            className="input-field pl-11 pr-5 py-3 w-full sm:w-48"
                         />
                     </div>
                     <div className="relative">
-                        <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                        <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-green-400" size={18} />
                         <input
                             type="text" name="districtName" placeholder="District" value={filters.districtName} onChange={handleFilterChange}
-                            className="pl-10 pr-4 py-2 bg-slate-900/50 border border-slate-700/50 rounded-lg text-sm text-white focus:outline-none focus:border-blue-500 w-40"
+                            className="input-field pl-11 pr-5 py-3 w-full sm:w-48"
                         />
                     </div>
-                    <button onClick={fetchPrices} className="bg-blue-600 hover:bg-blue-500 transition-colors text-white px-6 py-2 rounded-lg font-medium text-sm shadow-lg shadow-blue-500/20">
-                        Query Model
+                    <button onClick={fetchPrices} className="btn-primary w-full sm:w-auto py-3 px-8 shadow-[0_4px_15px_rgba(76,175,80,0.3)] text-sm font-bold tracking-wide">
+                        Query Market
                     </button>
-                </div>
+                </motion.div>
             </header>
 
             {loading ? (
-                <div className="flex justify-center items-center h-64">
-                    <div className="w-10 h-10 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin" />
+                <div className="flex justify-center items-center h-80">
+                    <div className="w-16 h-16 border-4 border-green-500/20 border-t-green-500 rounded-full animate-spin drop-shadow-[0_0_15px_rgba(76,175,80,0.5)]" />
                 </div>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                     {prices.map((item, idx) => (
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: idx * 0.05 }}
+                            transition={{ delay: idx * 0.08 }}
                             key={item._id || idx}
-                            className="glass-card p-6"
+                            className="glass-card p-8 group hover:-translate-y-2 transition-all relative overflow-hidden"
                         >
-                            <div className="flex justify-between items-start mb-6">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-green-500/5 rounded-full blur-[40px] group-hover:bg-green-500/10 transition-colors pointer-events-none" />
+                            
+                            <div className="flex justify-between items-start mb-8 relative z-10">
                                 <div>
-                                    <h3 className="text-2xl font-bold text-white flex items-center">
-                                        <Tag className="mr-2 text-blue-500" size={20} />
+                                    <h3 className="text-2xl font-bold text-white flex items-center gap-2 group-hover:text-green-300 transition-colors">
+                                        <Tag className="text-green-400" size={22} />
                                         {item.cropName}
                                     </h3>
-                                    <p className="text-sm text-slate-400 flex items-center mt-1">
-                                        <MapPin className="mr-1 opacity-70" size={14} /> {item.marketName}, {item.districtName}
+                                    <p className="text-sm text-white/60 flex items-center mt-2 font-medium">
+                                        <MapPin className="mr-1.5 text-green-500/70" size={16} /> {item.marketName}, {item.districtName}
                                     </p>
                                 </div>
-                                <span className="text-xs font-semibold bg-slate-800 text-slate-300 px-3 py-1 rounded-full border border-slate-700">
-                                    {new Date(item.recordedDate || Date.now()).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
+                                <span className="text-[11px] font-bold tracking-wider text-green-300 px-4 py-1.5 rounded-full border border-green-500/20 shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]">
+                                    {new Date(item.recordedDate || Date.now()).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }).toUpperCase()}
                                 </span>
                             </div>
 
-                            <div className="grid grid-cols-3 gap-4 border-t border-slate-700/50 pt-5">
-                                <div className="text-center">
-                                    <span className="block text-[10px] text-slate-500 uppercase tracking-widest font-semibold mb-1">Low</span>
-                                    <span className="font-semibold text-slate-300">₹{item.minPrice}<span className="text-[10px] text-slate-500">/qtl</span></span>
+                            <div className="grid grid-cols-3 gap-4 border-t border-white/10 pt-6 relative z-10">
+                                <div className="text-center rounded-xl p-3 border border-white/5">
+                                    <span className="block text-[10px] text-white/40 uppercase tracking-widest font-bold mb-1.5">Low</span>
+                                    <span className="font-semibold text-white/80">₹{item.minPrice}<span className="text-[10px] text-white/40 ml-0.5">/qtl</span></span>
                                 </div>
-                                <div className="text-center transform scale-110">
-                                    <span className="block text-[10px] text-blue-400 uppercase tracking-widest font-bold mb-1">Modal</span>
-                                    <span className="text-xl font-bold text-white bg-blue-500/10 px-2 py-0.5 rounded-lg border border-blue-500/20">₹{item.modalPrice}<span className="text-xs font-normal opacity-70">/qtl</span></span>
+                                <div className="glass-card text-center transform scale-[1.15] bg-gradient-to-b from-green-500/10 to-transparent rounded-xl p-3 border border-green-500/20 shadow-[0_5px_15px_rgba(0,0,0,0.3)] z-10">
+                                    <span className="block text-[10px] text-green-400 uppercase tracking-widest font-black mb-1">Modal</span>
+                                    <span className="text-xl font-bold text-white drop-shadow-[0_0_8px_rgba(76,175,80,0.5)]">₹{item.modalPrice}<span className="text-xs font-medium text-green-400/70 ml-0.5">/qtl</span></span>
                                 </div>
-                                <div className="text-center">
-                                    <span className="block text-[10px] text-slate-500 uppercase tracking-widest font-semibold mb-1">High</span>
-                                    <span className="font-semibold text-slate-300">₹{item.maxPrice}<span className="text-[10px] text-slate-500">/qtl</span></span>
+                                <div className="text-center rounded-xl p-3 border border-white/5">
+                                    <span className="block text-[10px] text-white/40 uppercase tracking-widest font-bold mb-1.5">High</span>
+                                    <span className="font-semibold text-white/80">₹{item.maxPrice}<span className="text-[10px] text-white/40 ml-0.5">/qtl</span></span>
                                 </div>
                             </div>
                         </motion.div>
                     ))}
 
                     {prices.length === 0 && (
-                        <div className="col-span-full h-40 flex items-center justify-center text-slate-500 bg-slate-800/20 rounded-2xl border border-dashed border-slate-700">
-                            No aggregate data found for the specified query parameters.
+                        <div className="glass-panel col-span-full h-64 flex flex-col items-center justify-center text-white/50 rounded-3xl border-2 border-dashed border-white/10">
+                            <TrendingUp size={48} className="text-white/20 mb-4" />
+                            <p className="font-medium text-lg tracking-wide">No aggregate data found for the specified query.</p>
                         </div>
                     )}
                 </div>

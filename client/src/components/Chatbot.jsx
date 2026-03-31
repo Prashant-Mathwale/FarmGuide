@@ -73,7 +73,7 @@ function Chatbot() {
                         initial={{ opacity: 0, y: 50, scale: 0.9 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 50, scale: 0.9 }}
-                        className="fixed bottom-6 right-6 w-[350px] sm:w-[400px] h-[550px] bg-slate-900 border border-slate-700 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] z-50 flex flex-col overflow-hidden"
+                        className="glass-panel fixed bottom-6 right-6 w-[350px] sm:w-[400px] h-[550px] border border-slate-700 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] z-50 flex flex-col overflow-hidden"
                     >
                         {/* Header */}
                         <div className="bg-gradient-to-r from-emerald-600 to-teal-500 p-4 flex justify-between items-center text-white">
@@ -87,14 +87,14 @@ function Chatbot() {
                         </div>
 
                         {/* Messages Area */}
-                        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-800/50">
+                        <div className="flex-1 overflow-y-auto p-4 space-y-4">
                             {messages.map((msg, idx) => (
                                 <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                     <div className={`flex items-start max-w-[85%] ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
-                                        <div className={`flex-shrink-0 rounded-full p-2 mx-2 ${msg.role === 'user' ? 'bg-emerald-500' : 'bg-slate-700'}`}>
+                                        <div className={`flex-shrink-0 rounded-full p-2 mx-2 ${msg.role === 'user' ? 'bg-emerald-500' : ''}`}>
                                             {msg.role === 'user' ? <User size={16} className="text-white" /> : <Bot size={16} className="text-emerald-400" />}
                                         </div>
-                                        <div className={`p-3 rounded-2xl whitespace-pre-wrap ${msg.role === 'user' ? 'bg-emerald-500 text-white rounded-tr-none' : 'bg-slate-700 text-slate-200 rounded-tl-none border border-slate-600'}`}>
+                                        <div className={`p-3 rounded-2xl whitespace-pre-wrap ${msg.role === 'user' ? 'bg-emerald-500 text-white rounded-tr-none' : 'glass-card text-slate-200 rounded-tl-none border border-slate-600'}`}>
                                             <p className="text-sm leading-relaxed">
                                                 {msg.text.replace(/\*\*/g, '').replace(/(^|\n)\s*\*\s+/g, '$1• ').replace(/###\s+/g, '')}
                                             </p>
@@ -105,10 +105,10 @@ function Chatbot() {
                             {loading && (
                                 <div className="flex justify-start">
                                     <div className="flex items-start max-w-[85%]">
-                                        <div className="flex-shrink-0 rounded-full p-2 mx-2 bg-slate-700">
+                                        <div className="flex-shrink-0 rounded-full p-2 mx-2">
                                             <Bot size={16} className="text-emerald-400" />
                                         </div>
-                                        <div className="p-3 rounded-2xl bg-slate-700 text-slate-200 rounded-tl-none border border-slate-600 flex items-center space-x-2">
+                                        <div className="glass-card p-3 rounded-2xl text-slate-200 rounded-tl-none border border-slate-600 flex items-center space-x-2">
                                             <Loader2 size={16} className="animate-spin text-emerald-400" />
                                             <span className="text-sm text-slate-400 italic">FarmGuide AI is typing...</span>
                                         </div>
@@ -119,14 +119,14 @@ function Chatbot() {
                         </div>
 
                         {/* Input Area */}
-                        <div className="p-3 bg-slate-900 border-t border-slate-700">
+                        <div className="p-3 border-t border-slate-700">
                             <form onSubmit={handleSend} className="flex items-center space-x-2">
                                 <input
                                     type="text"
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}
                                     placeholder="Ask about crops, diseases..."
-                                    className="flex-1 bg-slate-800 text-white rounded-xl py-3 px-4 outline-none focus:ring-2 focus:ring-emerald-500 transition-all placeholder:text-slate-500 text-sm"
+                                    className="input-field flex-1 text-white rounded-xl py-3 px-4 outline-none focus:ring-2 focus:ring-emerald-500 transition-all placeholder:text-slate-500 text-sm"
                                 />
                                 <button
                                     type="submit"

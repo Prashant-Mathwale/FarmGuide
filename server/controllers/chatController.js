@@ -11,7 +11,7 @@ const handleChat = async (req, res) => {
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
         // Using the recommended fast model
         const model = genAI.getGenerativeModel({
-            model: "gemini-2.5-flash",
+            model: "gemini-1.5-flash",
             systemInstruction: "You are a highly knowledgeable and friendly AI assistant for farmers using the FarmGuide app. Your goal is to provide practical, accurate, and easy-to-understand advice on crop cultivation, soil management, disease treatment, weather impacts, and agricultural market trends. Keep your answers concise, actionable, and formatted nicely. Do not answer questions completely unrelated to agriculture or the FarmGuide app features."
         });
 

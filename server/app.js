@@ -19,6 +19,5 @@ app.use('/api/ml', require('./routes/mlRoutes'));
 app.use('/api/market', require('./routes/marketRoutes'));
 app.use('/api/weather', require('./routes/weatherRoutes'));
 app.use('/api/chat', require('./routes/chatRoutes'));
-app.use('/api/profit', require('./routes/profitRoutes'));
 
 module.exports = app;

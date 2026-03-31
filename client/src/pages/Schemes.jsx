@@ -77,13 +77,13 @@ function Schemes() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
                         onSubmit={handleSearch} 
-                        className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-3 w-full bg-slate-800/40 p-4 rounded-2xl border border-slate-700/50 backdrop-blur-md"
+                        className="glass-panel grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-3 w-full p-4 rounded-2xl border border-slate-700/50"
                     >
                         <div className="relative">
                             <label className="text-[10px] uppercase font-bold text-slate-500 mb-1 block">Region</label>
                             <select 
                                 name="state"
-                                className="input-field text-sm appearance-none cursor-pointer border-slate-700 bg-slate-900/50"
+                                className="input-field text-sm appearance-none cursor-pointer border-slate-700"
                                 value={searchParams.state}
                                 onChange={handleChange}
                             >
@@ -97,7 +97,7 @@ function Schemes() {
                                 type="number"
                                 name="land_size"
                                 placeholder="e.g. 2.5"
-                                className="input-field text-sm border-slate-700 bg-slate-900/50"
+                                className="input-field text-sm border-slate-700"
                                 value={searchParams.land_size}
                                 onChange={handleChange}
                             />
@@ -107,7 +107,7 @@ function Schemes() {
                             <label className="text-[10px] uppercase font-bold text-slate-500 mb-1 block">Gender</label>
                             <select 
                                 name="gender"
-                                className="input-field text-sm appearance-none cursor-pointer border-slate-700 bg-slate-900/50"
+                                className="input-field text-sm appearance-none cursor-pointer border-slate-700"
                                 value={searchParams.gender}
                                 onChange={handleChange}
                             >
@@ -120,7 +120,7 @@ function Schemes() {
                             <label className="text-[10px] uppercase font-bold text-slate-500 mb-1 block">Category</label>
                             <select 
                                 name="caste"
-                                className="input-field text-sm appearance-none cursor-pointer border-slate-700 bg-slate-900/50"
+                                className="input-field text-sm appearance-none cursor-pointer border-slate-700"
                                 value={searchParams.caste}
                                 onChange={handleChange}
                             >
@@ -187,7 +187,7 @@ function Schemes() {
                                 href={scheme.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="mt-auto w-full py-3 bg-slate-800/80 hover:bg-purple-600/20 border border-slate-700 hover:border-purple-500/50 rounded-lg text-purple-400 font-bold tracking-wide text-xs uppercase flex items-center justify-center gap-2 transition-all cursor-pointer"
+                                className="mt-auto w-full py-3 hover:bg-purple-600/20 border border-slate-700 hover:border-purple-500/50 rounded-lg text-purple-400 font-bold tracking-wide text-xs uppercase flex items-center justify-center gap-2 transition-all cursor-pointer"
                             >
                                 Eligibility & Apply <ExternalLink size={14} />
                             </a>

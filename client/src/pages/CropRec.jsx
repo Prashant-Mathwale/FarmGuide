@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle2, Loader2 } from 'lucide-react';
+import { CheckCircle2, Loader2, Sparkles } from 'lucide-react';
 import api from '../services/api';
 
 function CropRec() {
@@ -21,62 +21,84 @@ function CropRec() {
                 setLoading(false);
             }, 1200);
         } catch (err) {
-            alert('Error fetching recommendation');
+            const errorMsg = err.response && err.response.data && err.response.data.message 
+                ? err.response.data.message 
+                : 'Error fetching recommendation';
+            alert(errorMsg);
             setLoading(false);
         }
     };
 
     return (
-        <div className="w-full max-w-4xl mx-auto">
-            <header className="mb-10">
-                <h2 className="text-3xl font-bold tracking-tight text-white mb-2">Crop Recommendation</h2>
-                <p className="text-slate-400 text-lg">Input your soil context to receive AI-driven planting strategies.</p>
+        <div className="w-full max-w-5xl mx-auto">
+            <header className="mb-12">
+                <motion.h2 
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-3 text-glow-strong"
+                >
+                    Crop Recommendation
+                </motion.h2>
+                <motion.p 
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="text-white/70 text-lg font-medium tracking-wide"
+                >
+                    Input your soil context to receive AI-driven planting strategies.
+                </motion.p>
             </header>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative items-start">
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="glass-panel p-8 relative overflow-hidden"
+                    className="glass-panel p-8 md:p-10 relative overflow-hidden"
                 >
-                    <h3 className="text-xl font-bold text-white mb-6">Soil Parameters</h3>
+                    {/* Subtle glow effect behind form */}
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/10 rounded-full blur-[80px] -z-10" />
 
-                    <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
-                        <div className="grid grid-cols-2 gap-5">
+                    <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                        <Sparkles className="text-green-400" size={24} />
+                        Soil Parameters
+                    </h3>
+
+                    <form onSubmit={handleSubmit} className="space-y-6 relative z-10 w-full">
+                        <div className="grid grid-cols-2 gap-6">
                             <div className="relative">
-                                <label className="block text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">Nitrogen (N)</label>
+                                <label className="block text-xs font-bold text-green-400 uppercase tracking-widest mb-2 opacity-90">Nitrogen (N)</label>
                                 <input name="N_level" type="number" onChange={handleChange} required className="input-field" placeholder="mg/kg" />
                             </div>
                             <div className="relative">
-                                <label className="block text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">Phosphorus (P)</label>
+                                <label className="block text-xs font-bold text-green-400 uppercase tracking-widest mb-2 opacity-90">Phosphorus (P)</label>
                                 <input name="P_level" type="number" onChange={handleChange} required className="input-field" placeholder="mg/kg" />
                             </div>
                             <div className="relative">
-                                <label className="block text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">Potassium (K)</label>
+                                <label className="block text-xs font-bold text-green-400 uppercase tracking-widest mb-2 opacity-90">Potassium (K)</label>
                                 <input name="K_level" type="number" onChange={handleChange} required className="input-field" placeholder="mg/kg" />
                             </div>
                             <div className="relative">
-                                <label className="block text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">pH Level</label>
+                                <label className="block text-xs font-bold text-green-400 uppercase tracking-widest mb-2 opacity-90">pH Level</label>
                                 <input name="pH_value" type="number" step="0.1" onChange={handleChange} required className="input-field" placeholder="0 - 14" />
                             </div>
                             <div className="relative">
-                                <label className="block text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">Temperature</label>
+                                <label className="block text-xs font-bold text-green-400 uppercase tracking-widest mb-2 opacity-90">Temperature</label>
                                 <input name="temperature" type="number" step="0.1" onChange={handleChange} required className="input-field" placeholder="°C" />
                             </div>
                             <div className="relative">
-                                <label className="block text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">Rainfall</label>
+                                <label className="block text-xs font-bold text-green-400 uppercase tracking-widest mb-2 opacity-90">Rainfall</label>
                                 <input name="rainfall" type="number" step="0.1" onChange={handleChange} required className="input-field" placeholder="mm" />
                             </div>
-                            <div className="relative">
-                                <label className="block text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">Humidity</label>
+                            <div className="relative col-span-2">
+                                <label className="block text-xs font-bold text-green-400 uppercase tracking-widest mb-2 opacity-90">Humidity</label>
                                 <input name="moisture" type="number" step="0.1" onChange={handleChange} required className="input-field" placeholder="%" />
                             </div>
                         </div>
 
-                        <button type="submit" disabled={loading || recommendations !== null} className="w-full btn-primary text-lg mt-8 flex justify-center items-center">
+                        <button type="submit" disabled={loading || recommendations !== null} className="w-full btn-primary text-lg mt-10 flex justify-center items-center py-4">
                             {loading ? <Loader2 className="animate-spin mr-2" /> : 'Analyze Terrain'}
                         </button>
-                        <p className="text-center text-xs text-slate-500 mt-4">Calculations powered by Deep Learning Classification Models</p>
+                        <p className="text-center text-xs font-medium text-white/40 mt-6 tracking-wide uppercase">Calculations powered by Deep Learning Classification Models</p>
                     </form>
                 </motion.div>
 
@@ -85,18 +107,20 @@ function CropRec() {
                         <motion.div
                             initial={{ opacity: 0, x: 20, scale: 0.95 }}
                             animate={{ opacity: 1, x: 0, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
                             transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                            className="glass-panel p-8 bg-gradient-to-br from-emerald-900/40 to-slate-900/60 border-emerald-500/30 shadow-[0_0_30px_rgba(16,185,129,0.15)]"
+                            className="glass-panel p-8 md:p-10 border border-green-500/30 shadow-[0_0_40px_rgba(76,175,80,0.2)]"
                         >
-                            <div className="flex items-center space-x-3 mb-6">
-                                <div className="bg-emerald-500 rounded-full p-1 border-4 border-emerald-500/20">
-                                    <CheckCircle2 size={24} className="text-slate-900" />
+                            <div className="flex items-center space-x-4 mb-8">
+                                <div className="bg-gradient-to-br from-green-400 to-emerald-600 rounded-full p-2 border-4 border-green-500/20 shadow-[0_0_15px_rgba(76,175,80,0.4)]">
+                                    <CheckCircle2 size={32} className="text-white" />
                                 </div>
-                                <h3 className="text-xl font-bold text-white">Top Recommendations</h3>
+                                <h3 className="text-2xl font-bold text-white text-glow">Top Matches</h3>
                             </div>
 
-                            <div className="space-y-4 relative">
-                                <div className="absolute left-4 top-4 bottom-4 w-px bg-emerald-500/20" />
+                            <div className="space-y-5 relative">
+                                {/* Connecting line */}
+                                <div className="absolute left-[15px] top-4 bottom-4 w-0.5 bg-gradient-to-b from-green-400/40 to-transparent" />
 
                                 {recommendations.map((rec, idx) => (
                                     <motion.div
@@ -104,19 +128,20 @@ function CropRec() {
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ delay: 0.1 * idx }}
                                         key={idx}
-                                        className="relative pl-10"
+                                        className="relative pl-12"
                                     >
-                                        <div className="absolute left-[-5px] top-1/2 -translate-y-1/2 w-[11px] h-[11px] rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.8)]" />
-                                        <div className="bg-slate-800/60 border border-slate-700 rounded-xl p-4 flex justify-between items-center group hover:bg-slate-700/60 transition-colors">
-                                            <span className="text-lg font-bold text-white tracking-wide capitalize">{rec.name || rec}</span>
+                                        <div className="absolute left-1 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-green-400 shadow-[0_0_15px_rgba(76,175,80,0.8)] border-2 border-[#1E293B]" />
+                                        
+                                        <div className="glass-card p-5 flex justify-between items-center group hover:bg-white/5 transition-all">
+                                            <span className="text-xl font-bold text-white tracking-wide capitalize">{rec.name || rec}</span>
                                             <div className="text-right">
-                                                <span className="text-sm font-semibold text-emerald-400">{rec.match || 98}% Match</span>
-                                                <div className="w-24 h-1.5 bg-slate-900 rounded-full mt-1 overflow-hidden">
+                                                <span className="text-sm font-bold text-green-400 drop-shadow-[0_0_8px_rgba(76,175,80,0.5)]">{rec.match || 98}% Match</span>
+                                                <div className="w-28 h-2 rounded-full mt-2 overflow-hidden inset-shadow">
                                                     <motion.div
                                                         initial={{ width: 0 }}
                                                         animate={{ width: `${rec.match || 98}%` }}
-                                                        transition={{ duration: 1, delay: 0.2 + (idx * 0.1) }}
-                                                        className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full"
+                                                        transition={{ duration: 1, delay: 0.2 + (idx * 0.1), ease: "easeOut" }}
+                                                        className="h-full bg-gradient-to-r from-green-500 to-emerald-400 rounded-full"
                                                     />
                                                 </div>
                                             </div>
@@ -127,7 +152,7 @@ function CropRec() {
 
                             <button
                                 onClick={() => setRecommendations(null)}
-                                className="w-full mt-8 py-3 text-sm font-medium text-emerald-400 hover:text-emerald-300 transition-colors bg-emerald-500/10 rounded-xl border border-emerald-500/20 hover:bg-emerald-500/20"
+                                className="w-full mt-10 py-4 font-bold text-green-400 hover:text-green-300 transition-all bg-green-500/10 rounded-xl border border-green-500/20 hover:bg-green-500/20 hover:shadow-[0_0_20px_rgba(76,175,80,0.2)] text-lg"
                             >
                                 Start New Analysis
                             </button>

@@ -36,15 +36,18 @@ except Exception as e:
 weather_df = None
 try:
     print("Loading historical weather dataset...")
-    weather_df = pd.read_csv('district wise rainfall normal.csv')
+    weather_df = pd.read_csv('rainfall in india 1901-2015.csv')
 except Exception as e:
-    print("Warning: Could not load district wise rainfall normal.csv:", e)
+    print("Warning: Could not load rainfall in india 1901-2015.csv:", e)
 
 # Load Govt Schemes Data
 schemes_df = None
 try:
     print("Loading Government Schemes dataset...")
     sc_df = pd.read_csv('dataset/schemes.csv')
+    
+    col_mapping = {'detailed_description': 'details', 'categories': 'schemeCategory'}
+    sc_df.rename(columns=col_mapping, inplace=True)
     
     # Fill NAs and force to string for easy searching
     for col in ['details', 'benefits', 'eligibility', 'schemeCategory', 'tags', 'scheme_name']:
@@ -274,7 +277,8 @@ async def predict_risk(data: RiskData):
     try:
         if weather_df is not None:
             state_query = data.state.upper().strip()
-            state_data = weather_df[weather_df['STATE_UT_NAME'].str.upper().str.strip() == state_query]
+            # The SUBDIVISION column contains region/state names
+            state_data = weather_df[weather_df['SUBDIVISION'].str.upper().str.contains(state_query, na=False)]
             
             if not state_data.empty:
                 normal_rainfall = state_data['ANNUAL'].mean()
@@ -328,8 +332,8 @@ async def predict_price(request: PriceRequest):
         return {"success": False, "message": "Price dataset not loaded."}
     
     try:
-        crop = request.crop.lower()
-        crop_data = price_df[price_df['Commodity'].str.lower() == crop]
+        crop = request.crop.lower().strip()
+        crop_data = price_df[price_df['Commodity'].str.lower().str.strip() == crop]
         
         if crop_data.empty:
             # Fallback average price if specific crop not found (e.g., 20,000 INR per Ton)

@@ -91,7 +91,7 @@ function Fertilizer() {
                                 <label className="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-wide">Target Crop</label>
                                 <select 
                                     name="crop"
-                                    className="input-field text-sm font-semibold text-white bg-slate-900/80 border-slate-700 cursor-pointer w-full p-4 rounded-xl"
+                                    className="input-field text-sm font-semibold text-white border-slate-700 cursor-pointer w-full p-4 rounded-xl"
                                     value={formData.crop}
                                     onChange={handleChange}
                                 >
@@ -104,19 +104,19 @@ function Fertilizer() {
                                     <label className="flex items-center gap-2 text-xs font-bold text-sky-400 mb-2 uppercase tracking-wide">
                                         <Droplets size={14} /> Available Nitrogen (N)
                                     </label>
-                                    <input type="number" name="soilN" placeholder="kg/ha in soil" required className="input-field shadow-inner w-full p-4 rounded-xl text-white bg-slate-900 border border-slate-700 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all outline-none" value={formData.soilN} onChange={handleChange} />
+                                    <input type="number" name="soilN" placeholder="kg/ha in soil" required className="input-field shadow-inner w-full p-4 rounded-xl text-white border border-slate-700 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all outline-none" value={formData.soilN} onChange={handleChange} />
                                 </div>
                                 <div>
                                     <label className="flex items-center gap-2 text-xs font-bold text-amber-500 mb-2 uppercase tracking-wide">
                                         <Leaf size={14} /> Available Phosphorus (P)
                                     </label>
-                                    <input type="number" name="soilP" placeholder="kg/ha in soil" required className="input-field shadow-inner w-full p-4 rounded-xl text-white bg-slate-900 border border-slate-700 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all outline-none" value={formData.soilP} onChange={handleChange} />
+                                    <input type="number" name="soilP" placeholder="kg/ha in soil" required className="input-field shadow-inner w-full p-4 rounded-xl text-white border border-slate-700 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all outline-none" value={formData.soilP} onChange={handleChange} />
                                 </div>
                                 <div>
                                     <label className="flex items-center gap-2 text-xs font-bold text-purple-400 mb-2 uppercase tracking-wide">
                                         <Sprout size={14} /> Available Potassium (K)
                                     </label>
-                                    <input type="number" name="soilK" placeholder="kg/ha in soil" required className="input-field shadow-inner w-full p-4 rounded-xl text-white bg-slate-900 border border-slate-700 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all outline-none" value={formData.soilK} onChange={handleChange} />
+                                    <input type="number" name="soilK" placeholder="kg/ha in soil" required className="input-field shadow-inner w-full p-4 rounded-xl text-white border border-slate-700 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all outline-none" value={formData.soilK} onChange={handleChange} />
                                 </div>
                             </div>
 
@@ -157,23 +157,23 @@ function Fertilizer() {
                                     </div>
                                 )}
 
-                                <div className="glass-panel p-8 bg-gradient-to-br from-slate-900/80 to-slate-800/80 border border-slate-700 shadow-2xl flex-1 flex flex-col relative overflow-hidden">
-                                     <div className="absolute top-0 right-0 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+                                <div className="glass-panel p-8 border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex-1 flex flex-col relative overflow-hidden">
+                                     <div className="absolute top-0 right-0 w-64 h-64 bg-pink-500/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
 
                                     <h3 className="text-xl font-bold text-white mb-6 uppercase flex items-center gap-2">
                                         <Check className="text-emerald-400" /> Agronomic Prescription
                                     </h3>
 
                                     <div className="grid grid-cols-3 gap-4 mb-8">
-                                        <div className="bg-slate-800/60 p-4 border border-slate-700 rounded-xl text-center shadow-inner">
+                                        <div className=" p-4 border border-slate-700 rounded-xl text-center shadow-inner">
                                             <p className="text-xs uppercase font-bold text-sky-400 mb-1">N-Deficit</p>
                                             <p className="text-2xl font-black text-white">{result.defN} <span className="text-sm font-medium text-slate-400">kg/ha</span></p>
                                         </div>
-                                        <div className="bg-slate-800/60 p-4 border border-slate-700 rounded-xl text-center shadow-inner">
+                                        <div className=" p-4 border border-slate-700 rounded-xl text-center shadow-inner">
                                             <p className="text-xs uppercase font-bold text-amber-500 mb-1">P-Deficit</p>
                                             <p className="text-2xl font-black text-white">{result.defP} <span className="text-sm font-medium text-slate-400">kg/ha</span></p>
                                         </div>
-                                        <div className="bg-slate-800/60 p-4 border border-slate-700 rounded-xl text-center shadow-inner">
+                                        <div className=" p-4 border border-slate-700 rounded-xl text-center shadow-inner">
                                             <p className="text-xs uppercase font-bold text-purple-400 mb-1">K-Deficit</p>
                                             <p className="text-2xl font-black text-white">{result.defK} <span className="text-sm font-medium text-slate-400">kg/ha</span></p>
                                         </div>

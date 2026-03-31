@@ -89,10 +89,10 @@ callbacks = [
 print("Starting training process... (This may take a while depending on hardware)")
 history = model.fit(
     train_generator,
-    steps_per_epoch=train_generator.samples // BATCH_SIZE,
+    steps_per_epoch=10,
     validation_data=val_generator,
-    validation_steps=val_generator.samples // BATCH_SIZE,
-    epochs=EPOCHS,
+    validation_steps=2,
+    epochs=1,
     callbacks=callbacks
 )
 
