@@ -60,14 +60,14 @@ function MarketPrices() {
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-green-400" size={18} />
                         <input
                             type="text" name="cropName" placeholder="Commodity" value={filters.cropName} onChange={handleFilterChange}
-                            className="input-field pl-11 pr-5 py-3 w-full sm:w-48"
+                            className="input-field !pl-12 pr-5 py-3 w-full sm:w-48"
                         />
                     </div>
                     <div className="relative">
                         <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-green-400" size={18} />
                         <input
                             type="text" name="districtName" placeholder="District" value={filters.districtName} onChange={handleFilterChange}
-                            className="input-field pl-11 pr-5 py-3 w-full sm:w-48"
+                            className="input-field !pl-12 pr-5 py-3 w-full sm:w-48"
                         />
                     </div>
                     <button onClick={fetchPrices} className="btn-primary w-full sm:w-auto py-3 px-8 shadow-[0_4px_15px_rgba(76,175,80,0.3)] text-sm font-bold tracking-wide">

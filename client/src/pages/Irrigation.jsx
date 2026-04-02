@@ -83,12 +83,12 @@ function Irrigation() {
                             <div className="col-span-1 md:col-span-2">
                                 <label className="block text-xs font-bold text-slate-400 mb-1 uppercase tracking-wider">Crop Type Tracker</label>
                                 <div className="relative">
-                                    <Sprout className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                                    <Sprout className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
                                     <input 
                                         type="text" 
                                         name="cropType"
                                         placeholder="e.g., Wheat"
-                                        className="input-field !pl-10 text-sm"
+                                        className="input-field !pl-12 text-sm"
                                         value={formData.cropType}
                                         onChange={handleChange}
                                         required
@@ -96,16 +96,16 @@ function Irrigation() {
                                 </div>
                             </div>
 
-                            {/* Crop Days */}
+                            {/* Crop Age */}
                             <div>
                                 <label className="block text-xs font-bold text-slate-400 mb-1 uppercase tracking-wider">Crop Age (Days)</label>
                                 <div className="relative">
-                                    <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                                    <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
                                     <input 
                                         type="number" 
                                         name="cropDays"
                                         placeholder="e.g., 45"
-                                        className="input-field !pl-10 text-sm"
+                                        className="input-field !pl-12 text-sm"
                                         value={formData.cropDays}
                                         onChange={handleChange}
                                         required
@@ -117,12 +117,12 @@ function Irrigation() {
                             <div>
                                 <label className="block text-xs font-bold text-slate-400 mb-1 uppercase tracking-wider">Soil Moisture Index</label>
                                 <div className="relative">
-                                    <Droplets className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                                    <Droplets className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
                                     <input 
                                         type="number" 
                                         name="soilMoisture"
                                         placeholder="e.g., 350"
-                                        className="input-field !pl-10 text-sm"
+                                        className="input-field !pl-12 text-sm"
                                         value={formData.soilMoisture}
                                         onChange={handleChange}
                                         required
@@ -134,12 +134,12 @@ function Irrigation() {
                             <div>
                                 <label className="block text-xs font-bold text-slate-400 mb-1 uppercase tracking-wider">Temperature (°C)</label>
                                 <div className="relative">
-                                    <ThermometerSun className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                                    <ThermometerSun className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
                                     <input 
                                         type="number" 
                                         name="temperature"
                                         placeholder="e.g., 32"
-                                        className="input-field !pl-10 text-sm"
+                                        className="input-field !pl-12 text-sm"
                                         value={formData.temperature}
                                         onChange={handleChange}
                                         required
@@ -151,12 +151,12 @@ function Irrigation() {
                             <div>
                                 <label className="block text-xs font-bold text-slate-400 mb-1 uppercase tracking-wider">Humidity (%)</label>
                                 <div className="relative">
-                                    <Wind className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                                    <Wind className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
                                     <input 
                                         type="number" 
                                         name="humidity"
                                         placeholder="e.g., 65"
-                                        className="input-field !pl-10 text-sm"
+                                        className="input-field !pl-12 text-sm"
                                         value={formData.humidity}
                                         onChange={handleChange}
                                         required

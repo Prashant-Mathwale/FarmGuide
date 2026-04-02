@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Sprout, Bug, TrendingUp, CloudRain, ChevronRight, Activity, AlertCircle, Droplets, Landmark, AlertTriangle } from 'lucide-react';
-
+import { Sprout, Bug, TrendingUp, CloudRain, ChevronRight, Activity, Droplets, Landmark, AlertTriangle } from 'lucide-react';
 import api from '../services/api';
 
 function Dashboard() {
@@ -25,7 +24,7 @@ function Dashboard() {
                     });
                 }
             } catch (error) {
-                console.error("Failed to load trend data", error);
+                console.error("Dashboard: Trend data load failed", error);
             } finally {
                 setLoading(false);
             }
@@ -35,10 +34,7 @@ function Dashboard() {
 
     const containerVariants = {
         hidden: { opacity: 0 },
-        show: {
-            opacity: 1,
-            transition: { staggerChildren: 0.1 }
-        }
+        show: { opacity: 1, transition: { staggerChildren: 0.1 } }
     };
 
     const itemVariants = {
@@ -48,151 +44,45 @@ function Dashboard() {
 
     return (
         <div className="w-full max-w-7xl mx-auto">
-            {/* Greeting Section */}
             <section className="mb-10 mt-4">
                 <h2 className="font-headline text-4xl font-bold text-on-surface tracking-tight leading-tight">
                     Welcome back, <span className="text-primary glow-text">{user?.fullName?.split(' ')[0]}</span>
                 </h2>
             </section>
 
-            {/* Bento Grid Feature Cards */}
             <motion.div
                 variants={containerVariants}
                 initial="hidden"
                 animate="show"
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10"
             >
-                {/* Crop Recommendation */}
-                <Link to="/crop-rec" className="lg:col-span-1">
-                    <motion.div variants={itemVariants} className="glass-panel glass-card-hover rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between group h-48">
-                        <div className="flex justify-between items-start">
-                            <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                                <Sprout size={28} />
+                {/* Feature Cards Loop */}
+                {[
+                    { to: "/crop-rec", icon: Sprout, color: "primary", title: "Crop Recs", desc: "Predictive seasonal analysis" },
+                    { to: "/disease-detect", icon: Bug, color: "error", title: "Disease Detect", desc: "AI foliage scanning" },
+                    { to: "/market-prices", icon: TrendingUp, color: "secondary", title: "Market Insights", desc: "Real-time tracking" },
+                    { to: "/weather", icon: CloudRain, color: "primary", title: "Weather", desc: "Local micro-climatics" },
+                    { to: "/irrigation", icon: Droplets, color: "blue-400", title: "Irrigation", desc: "Smart valve control" },
+                    { to: "/schemes", icon: Landmark, color: "primary", title: "Govt Schemes", desc: "Financial aid tracking" },
+                    { to: "/pest-predict", icon: AlertTriangle, color: "orange-400", title: "Pest Predict", desc: "Outbreak risk assessment" },
+                    { to: "/fertilizer", icon: Activity, color: "secondary", title: "Nutrient Calc", desc: "NPK ratio mapping" }
+                ].map((item, idx) => (
+                    <Link key={idx} to={item.to} className="lg:col-span-1">
+                        <motion.div variants={itemVariants} className="glass-panel glass-card-hover rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between group h-48">
+                            <div className="flex justify-between items-start">
+                                <div className={`w-12 h-12 bg-${item.color}/10 rounded-2xl flex items-center justify-center text-${item.color} group-hover:scale-110 transition-transform`}>
+                                    <item.icon size={28} />
+                                </div>
+                                <ChevronRight className="text-on-surface-variant/40 group-hover:text-primary transition-colors cursor-pointer" />
                             </div>
-                            <ChevronRight className="text-on-surface-variant/40 group-hover:text-primary transition-colors cursor-pointer" />
-                        </div>
-                        <div>
-                            <h3 className="font-headline text-lg font-bold text-on-surface">Crop Recs</h3>
-                            <p className="text-on-surface-variant text-xs mt-1">Predictive seasonal analysis</p>
-                        </div>
-                    </motion.div>
-                </Link>
-
-                {/* Disease Detection */}
-                <Link to="/disease-detect" className="lg:col-span-1">
-                    <motion.div variants={itemVariants} className="glass-panel glass-card-hover rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between group h-48">
-                        <div className="flex justify-between items-start">
-                            <div className="w-12 h-12 bg-error/10 rounded-2xl flex items-center justify-center text-error group-hover:scale-110 transition-transform">
-                                <Bug size={28} />
+                            <div>
+                                <h3 className="font-headline text-lg font-bold text-on-surface">{item.title}</h3>
+                                <p className="text-on-surface-variant text-xs mt-1">{item.desc}</p>
                             </div>
-                            <ChevronRight className="text-on-surface-variant/40 group-hover:text-error transition-colors cursor-pointer" />
-                        </div>
-                        <div>
-                            <h3 className="font-headline text-lg font-bold text-on-surface">Disease Detect</h3>
-                            <p className="text-on-surface-variant text-xs mt-1">AI-powered foliage scanning</p>
-                        </div>
-                    </motion.div>
-                </Link>
-
-                {/* Market Insights */}
-                <Link to="/market-prices" className="lg:col-span-1">
-                    <motion.div variants={itemVariants} className="glass-panel glass-card-hover rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between group h-48">
-                        <div className="flex justify-between items-start">
-                            <div className="w-12 h-12 bg-secondary/10 rounded-2xl flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
-                                <TrendingUp size={28} />
-                            </div>
-                            <ChevronRight className="text-on-surface-variant/40 group-hover:text-secondary transition-colors cursor-pointer" />
-                        </div>
-                        <div>
-                            <h3 className="font-headline text-lg font-bold text-on-surface">Market Insights</h3>
-                            <p className="text-on-surface-variant text-xs mt-1">Real-time commodity tracking</p>
-                        </div>
-                    </motion.div>
-                </Link>
-
-                {/* Weather */}
-                <Link to="/weather" className="lg:col-span-1">
-                    <motion.div variants={itemVariants} className="glass-panel glass-card-hover rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between group h-48">
-                        <div className="flex justify-between items-start">
-                            <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                                <CloudRain size={28} />
-                            </div>
-                            <div className="text-right">
-                                <p className="text-xl font-headline font-bold text-on-surface">28°C</p>
-                                <p className="text-[10px] text-primary">Clear Sky</p>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 className="font-headline text-lg font-bold text-on-surface">Weather</h3>
-                            <p className="text-on-surface-variant text-xs mt-1">Localized micro-climate data</p>
-                        </div>
-                    </motion.div>
-                </Link>
-
-                {/* Irrigation */}
-                <Link to="/irrigation" className="lg:col-span-1">
-                    <motion.div variants={itemVariants} className="glass-panel glass-card-hover rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between group h-48">
-                        <div className="flex justify-between items-start">
-                            <div className="w-12 h-12 bg-blue-400/10 rounded-2xl flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
-                                <Droplets size={28} />
-                            </div>
-                            <ChevronRight className="text-on-surface-variant/40 group-hover:text-blue-400 transition-colors cursor-pointer" />
-                        </div>
-                        <div>
-                            <h3 className="font-headline text-lg font-bold text-on-surface">Irrigation</h3>
-                            <p className="text-on-surface-variant text-xs mt-1">Smart valve control & scheduling</p>
-                        </div>
-                    </motion.div>
-                </Link>
-
-                {/* Govt Schemes */}
-                <Link to="/schemes" className="lg:col-span-1">
-                    <motion.div variants={itemVariants} className="glass-panel glass-card-hover rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between group h-48">
-                        <div className="flex justify-between items-start">
-                            <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                                <Landmark size={28} />
-                            </div>
-                            <ChevronRight className="text-on-surface-variant/40 group-hover:text-primary transition-colors cursor-pointer" />
-                        </div>
-                        <div>
-                            <h3 className="font-headline text-lg font-bold text-on-surface">Govt Schemes</h3>
-                            <p className="text-on-surface-variant text-xs mt-1">Financial aid and policy tracking for rural agronomists</p>
-                        </div>
-                    </motion.div>
-                </Link>
-
-                {/* Pest Prediction */}
-                <Link to="/pest-predict" className="lg:col-span-1">
-                    <motion.div variants={itemVariants} className="glass-panel glass-card-hover rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between group h-48">
-                        <div className="flex justify-between items-start">
-                            <div className="w-12 h-12 bg-orange-500/10 rounded-2xl flex items-center justify-center text-orange-400 group-hover:scale-110 transition-transform">
-                                <AlertTriangle size={28} />
-                            </div>
-                            <ChevronRight className="text-on-surface-variant/40 group-hover:text-orange-400 transition-colors cursor-pointer" />
-                        </div>
-                        <div>
-                            <h3 className="font-headline text-lg font-bold text-on-surface">Pest Predict</h3>
-                            <p className="text-on-surface-variant text-xs mt-1">Predict pest outbreaks & risk probability</p>
-                        </div>
-                    </motion.div>
-                </Link>
-
-                {/* Fertilizer Calc */}
-                <Link to="/fertilizer" className="lg:col-span-1">
-                    <motion.div variants={itemVariants} className="glass-panel glass-card-hover rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between group h-48">
-                        <div className="flex justify-between items-start">
-                            <div className="w-12 h-12 bg-secondary/10 rounded-2xl flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
-                                <Activity size={28} />
-                            </div>
-                        </div>
-                        <div>
-                            <h3 className="font-headline text-lg font-bold text-on-surface">Nutrient Calc</h3>
-                            <p className="text-on-surface-variant text-xs mt-1">Optimized NPK ratio mapping</p>
-                        </div>
-                    </motion.div>
-                </Link>
+                        </motion.div>
+                    </Link>
+                ))}
             </motion.div>
-
         </div>
     );
 }

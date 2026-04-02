@@ -70,13 +70,13 @@ function Weather() {
 
                 <form onSubmit={handleSearch} className="glass-panel flex gap-3 p-2 rounded-xl border border-slate-700/50">
                     <div className="relative">
-                        <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                        <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                         <input
                             type="text"
                             placeholder="Enter City..."
                             value={searchCity}
                             onChange={(e) => setSearchCity(e.target.value)}
-                            className="input-field pl-10 pr-4 py-2 text-sm text-white w-48 md:w-64"
+                            className="input-field !pl-12 pr-4 py-2 text-sm text-white w-48 md:w-64"
                         />
                     </div>
                     <button type="submit" className="bg-sky-600 hover:bg-sky-500 transition-colors text-white px-6 py-2 rounded-lg font-medium text-sm shadow-lg shadow-sky-500/20 flex items-center">

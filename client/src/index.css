@@ -162,3 +162,9 @@ html, body, #root {
   background: rgba(76, 175, 80, 0.05);
   box-shadow: 0 0 30px rgba(76, 175, 80, 0.1);
 }
+
+/* Fix for invisible text in browser dropdowns */
+select option {
+  background-color: #1a1f18;
+  color: #dfe4db;
+}
