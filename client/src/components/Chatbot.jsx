@@ -45,10 +45,13 @@ function Chatbot() {
 
             if (res.data.success) {
                 setMessages([...newMessages, { role: 'model', text: res.data.response }]);
+            } else {
+                setMessages([...newMessages, { role: 'model', text: res.data.message || "I'm having trouble thinking right now. Please try again." }]);
             }
         } catch (error) {
             console.error("Chat Error:", error);
-            setMessages([...newMessages, { role: 'model', text: "Sorry, I'm having trouble connecting to the server. Please check your API keys and try again." }]);
+            const errMsg = error.response?.data?.message || "Communication error: The AI server is currently unreachable.";
+            setMessages([...newMessages, { role: 'model', text: errMsg }]);
         } finally {
             setLoading(false);
         }
