@@ -29,7 +29,8 @@ const getCropRecommendation = async (req, res) => {
         };
 
         // Call the Python FastAPI microservice
-        const pythonApiRes = await axios.post('http://127.0.0.1:8000/predict_crop', payload);
+        const mlUrl = process.env.ML_SERVICE_URL || 'http://127.0.0.1:8000';
+        const pythonApiRes = await axios.post(`${mlUrl}/predict_crop`, payload);
 
         if (!pythonApiRes.data.success) {
             throw new Error(pythonApiRes.data.message || 'Failed to get prediction from ML server');
@@ -70,7 +71,8 @@ const detectDisease = async (req, res) => {
         const contentLength = form.getLengthSync();
 
         // Call the Python FastAPI microservice
-        const pythonApiRes = await axios.post('http://127.0.0.1:8000/predict_disease', form, {
+        const mlUrl = process.env.ML_SERVICE_URL || 'http://127.0.0.1:8000';
+        const pythonApiRes = await axios.post(`${mlUrl}/predict_disease`, form, {
             headers: {
                 ...formHeaders,
                 'Content-Length': contentLength
@@ -135,7 +137,8 @@ const predictPest = async (req, res) => {
         const payload = req.body;
         
         // Call the Python FastAPI microservice
-        const pythonApiRes = await axios.post('http://127.0.0.1:8000/predict_pest', payload);
+        const mlUrl = process.env.ML_SERVICE_URL || 'http://127.0.0.1:8000';
+        const pythonApiRes = await axios.post(`${mlUrl}/predict_pest`, payload);
 
         if (!pythonApiRes.data.success) {
             throw new Error(pythonApiRes.data.message || 'Failed to get pest prediction from ML server');

@@ -46,7 +46,8 @@ const getMarketPrices = async (req, res) => {
 const getMarketTrend = async (req, res) => {
     try {
         const crop = req.query.crop || 'wheat';
-        const pythonApiRes = await axios.post('http://127.0.0.1:8000/price_trend', { crop });
+        const mlUrl = process.env.ML_SERVICE_URL || 'http://127.0.0.1:8000';
+        const pythonApiRes = await axios.post(`${mlUrl}/price_trend`, { crop });
         if (pythonApiRes.data.success) return res.json({ success: true, data: pythonApiRes.data });
         throw new Error(pythonApiRes.data.message || 'ML Server trend failure');
     } catch (error) {
