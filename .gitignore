@@ -1,17 +1,40 @@
+# FarmGuide .gitignore
+
+# Dependencies
 node_modules/
+dist/
+build/
 .env
 .env.local
 .DS_Store
-dist/
-build/
+
+# Virtual Environments
 venv/
 __pycache__/
 *.pyc
-*.pkl
-# Crop_recommendation.csv is kept if the user wants it in repo, but usually ignored
-ml/dataset/
+
+# Archives and Large Raw Data (Blocked for Repo sanity)
 *.zip
+archive (4).zip
+ml/ml/dataset/
+dataset/
+ml/dataset/
+
+# ML models and necessary config (UN-IGNORED for deployment)
+# Tracked with Git LFS
+!ml/models/**
+!*.h5
+!*.pkl
+
+# Generic data ignore (Except some key files)
 *.csv
-*.h5
-ml/models/
+!ml/Crop_recommendation.csv
+!ml/Agriculture_price_dataset.csv
+!ml/pest_disease_prediction_dataset.csv.xls
+
+# Extra check for data files
+*.xls
+!ml/pest_disease_prediction_dataset.csv.xls
+
+# Tmp
 tmp/
