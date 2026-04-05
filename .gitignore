@@ -13,28 +13,9 @@ venv/
 __pycache__/
 *.pyc
 
-# Archives and Large Raw Data (Blocked for Repo sanity)
+# Archives
 *.zip
 archive (4).zip
-ml/ml/dataset/
-dataset/
-ml/dataset/
 
-# ML models and necessary config (UN-IGNORED for deployment)
-# Tracked with Git LFS
-!ml/models/**
-!*.h5
-!*.pkl
-
-# Generic data ignore (Except some key files)
-*.csv
-!ml/Crop_recommendation.csv
-!ml/Agriculture_price_dataset.csv
-!ml/pest_disease_prediction_dataset.csv.xls
-
-# Extra check for data files
-*.xls
-!ml/pest_disease_prediction_dataset.csv.xls
-
-# Tmp
+# Temporary files
 tmp/
