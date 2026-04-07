@@ -1,7 +1,5 @@
 # 🌾 FarmGuide - Intelligent Farming Assistant
 
-![FarmGuide Cover](https://via.placeholder.com/1200x400.png?text=FarmGuide+-+Empowering+Farmers+with+AI)
-
 FarmGuide is an all-in-one smart agricultural platform designed to empower farmers with data-driven insights and artificial intelligence. By integrating machine learning models, external APIs, and an intuitive dashboard, FarmGuide helps in crop planning, disease detection, resource optimization, and market analysis. 
 
 ---
@@ -143,17 +141,7 @@ npm run dev
 
 The application should now be running on `http://localhost:5173`.
 
----
 
-## 🌐 Deployment
-
-FarmGuide is designed to be easily deployed to modern cloud platforms:
-
-- **Frontend:** Can be hosted on Vercel, Netlify, or Render.
-- **Backend:** Node.js server optimal for Render, Heroku, or AWS EC2.
-- **ML Engine:** Best hosted on Hugging Face Spaces (for free generous memory & GPU support) or standard Docker containers.
-
-> **Note:** Make sure to update CORS settings on models, API endpoint pointers, and environment variables across your hosting services to establish full duplex communication.
 
 ---
 
@@ -166,8 +154,3 @@ Contributions are always welcome!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
----
-
-## 📄 License
-
-This project is licensed under the MIT License.
