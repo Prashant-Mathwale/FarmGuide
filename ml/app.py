@@ -267,8 +267,8 @@ if tf is not None:
         disease_model = tf.keras.models.load_model('models/disease_model.h5')
         with open('models/disease_classes.json', 'r') as f:
             disease_classes = json.load(f)
-    except Exception:
-        print("Warning: Could not load disease model.")
+    except Exception as e:
+        print(f"Warning: Could not load disease model. Error: {e}")
 
 @app.post("/predict_disease")
 async def predict_disease(file: UploadFile = File(...)):
