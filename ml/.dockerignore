@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+venv/
+.git/
+.gitattributes
+dataset/plantvillage dataset/
+dataset/_zip_test_extract/
+plantvillage.zip
+train_*.py
+pest_disease_prediction_dataset.csv.xls
+Crop_recommendation.csv
+datasets - datasets.csv
