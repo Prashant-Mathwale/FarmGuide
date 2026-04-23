@@ -19,7 +19,7 @@ print(f"Dataset successfully loaded from: {dataset_path}")
 # Hyperparameters
 IMG_SIZE = (224, 224)
 BATCH_SIZE = 32
-EPOCHS = 3 # Kept low for laptop CPU since we now have 38 classes & 54,000 images
+EPOCHS = 10 # 10 epochs is standard for fine-tuning MobileNetV2
 
 print("Setting up ImageDataGenerators...")
 # We use a validation split to train and validate on the same folder
@@ -50,11 +50,18 @@ val_generator = datagen.flow_from_directory(
     subset='validation'
 )
 
+if train_generator.samples == 0:
+    print("ERROR: No images found! You need to download the PlantVillage dataset and extract it into 'ml/dataset/plantvillage dataset/color/'")
+    exit(1)
+
 num_classes = len(train_generator.class_indices)
 print(f"Detected {num_classes} disease classes.")
 
 # Save the class names so the backend app can label predictions
 import json
+import os
+os.makedirs('models', exist_ok=True)
+
 with open('models/disease_classes.json', 'w') as f:
     json.dump(list(train_generator.class_indices.keys()), f)
 
@@ -86,13 +93,11 @@ callbacks = [
     ModelCheckpoint(model_path, monitor='val_accuracy', save_best_only=True)
 ]
 
-print("Starting training process... (This may take a while depending on hardware)")
+print("Starting training process... (This will take a while to fully train!)")
 history = model.fit(
     train_generator,
-    steps_per_epoch=10,
     validation_data=val_generator,
-    validation_steps=2,
-    epochs=1,
+    epochs=EPOCHS,
     callbacks=callbacks
 )
 
