@@ -2,11 +2,12 @@ const axios = require('axios');
 
 const getWeatherForecast = async (req, res) => {
     const { city, lat, lon } = req.query;
+    console.log(`[Weather] Requesting weather for: ${city || 'Pune'}`);
 
     const apiKey = process.env.OPENWEATHER_API_KEY;
 
     try {
-        if (!apiKey || apiKey === 'your_openweathermap_api_key_here') {
+        if (!apiKey || apiKey === 'your_openweathermap_api_key_here' || apiKey === '') {
             // Return mock data if API key is not configured
             return res.json({
                 success: true,
