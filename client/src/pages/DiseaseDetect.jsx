@@ -162,24 +162,33 @@ function DiseaseDetect() {
                                         animate={{ opacity: 1, y: 0 }}
                                         className="glass-card p-8 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-green-500/20 relative overflow-hidden"
                                     >
-                                        <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/10 rounded-full blur-[50px] pointer-events-none" />
+                                        {(() => {
+                                            const isHealthy = result.detectedDisease.toLowerCase().includes('healthy');
+                                            return (
+                                                <>
+                                                    <div className={`absolute top-0 right-0 w-32 h-32 rounded-full blur-[50px] pointer-events-none ${isHealthy ? 'bg-green-500/10' : 'bg-red-500/10'}`} />
 
-                                        <div className="mb-8 pb-8 border-b border-white/10 relative z-10">
-                                            <p className="text-white/50 text-xs font-bold uppercase tracking-widest mb-2">Detected Pathogen</p>
-                                            <h4 className="text-3xl font-bold text-red-400 flex items-center drop-shadow-[0_0_10px_rgba(248,113,113,0.3)]">
-                                                <AlertTriangle className="mr-3 text-red-500" size={32} /> 
-                                                <span className="capitalize">{result.detectedDisease}</span>
-                                            </h4>
-                                        </div>
+                                                    <div className="mb-8 pb-8 border-b border-white/10 relative z-10">
+                                                        <p className="text-white/50 text-xs font-bold uppercase tracking-widest mb-2">
+                                                            {isHealthy ? 'Plant Status' : 'Detected Pathogen'}
+                                                        </p>
+                                                        <h4 className={`text-3xl font-bold flex items-center ${isHealthy ? 'text-green-400 drop-shadow-[0_0_10px_rgba(74,222,128,0.3)]' : 'text-red-400 drop-shadow-[0_0_10px_rgba(248,113,113,0.3)]'}`}>
+                                                            {isHealthy ? <CheckCircle2 className="mr-3 text-green-500" size={32} /> : <AlertTriangle className="mr-3 text-red-500" size={32} />}
+                                                            <span className="capitalize">{result.detectedDisease}</span>
+                                                        </h4>
+                                                    </div>
 
-                                        <div className="mb-10 relative z-10">
-                                            <p className="text-green-400 text-xs font-bold uppercase tracking-widest mb-3">Recommended Protocol</p>
-                                            <p className="text-white/90 text-[1.1rem] leading-relaxed">{result.suggestedAction}</p>
-                                        </div>
+                                                    <div className="mb-10 relative z-10">
+                                                        <p className="text-green-400 text-xs font-bold uppercase tracking-widest mb-3">Recommended Protocol</p>
+                                                        <p className="text-white/90 text-[1.1rem] leading-relaxed">{result.suggestedAction}</p>
+                                                    </div>
 
-                                        <button onClick={() => { setPreviewUrl(null); setResult(null); }} className="w-full btn-secondary py-4 text-lg border-white/20 hover:bg-white/10 hover:border-white/40">
-                                            Scan Another Image
-                                        </button>
+                                                    <button onClick={() => { setPreviewUrl(null); setResult(null); }} className="w-full btn-secondary py-4 text-lg border-white/20 hover:bg-white/10 hover:border-white/40">
+                                                        Scan Another Image
+                                                    </button>
+                                                </>
+                                            );
+                                        })()}
                                     </motion.div>
                                 )}
                             </AnimatePresence>

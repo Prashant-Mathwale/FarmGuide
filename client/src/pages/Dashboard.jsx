@@ -76,8 +76,8 @@ function Dashboard() {
                                 <ChevronRight className="text-on-surface-variant/40 group-hover:text-primary transition-colors cursor-pointer" />
                             </div>
                             <div>
-                                <h3 className="font-headline text-lg font-bold text-on-surface">{item.title}</h3>
-                                <p className="text-on-surface-variant text-xs mt-1">{item.desc}</p>
+                                <h3 className={`font-headline text-lg font-bold text-${item.color} drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]`}>{item.title}</h3>
+                                <p className="text-on-surface-variant text-xs mt-1 drop-shadow-md">{item.desc}</p>
                             </div>
                         </motion.div>
                     </Link>

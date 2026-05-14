@@ -26,15 +26,15 @@ app.add_middleware(
 
 price_df = None
 try:
-    price_df = pd.read_csv('Agriculture_price_dataset.csv')
+    price_df = pd.read_csv('dataset/Agriculture_price_dataset.csv')
 except Exception as e:
-    print("Warning: Could not load Agriculture_price_dataset.csv:", e)
+    print("Warning: Could not load dataset/Agriculture_price_dataset.csv:", e)
 
 weather_df = None
 try:
-    weather_df = pd.read_csv('rainfall in india 1901-2015.csv')
+    weather_df = pd.read_csv('dataset/rainfall in india 1901-2015.csv')
 except Exception as e:
-    print("Warning: Could not load rainfall in india 1901-2015.csv:", e)
+    print("Warning: Could not load dataset/rainfall in india 1901-2015.csv:", e)
 
 schemes_df = None
 try:
@@ -58,10 +58,10 @@ except Exception as e:
 
 crop_model = None
 try:
-    with open('crop_model.pkl', 'rb') as f:
+    with open('models/crop_model.pkl', 'rb') as f:
         crop_model = pickle.load(f)
 except Exception:
-    print("Warning: crop_model.pkl not found.")
+    print("Warning: models/crop_model.pkl not found.")
 
 irrigation_model = None
 try:
@@ -85,6 +85,19 @@ try:
         pest_location_encoder = pickle.load(f)
 except Exception:
     print("Warning: Pest prediction models not found.")
+
+yield_model = None
+area_encoder = None
+item_encoder = None
+try:
+    with open('models/yield_model.pkl', 'rb') as f:
+        yield_model = pickle.load(f)
+    with open('models/area_encoder.pkl', 'rb') as f:
+        area_encoder = pickle.load(f)
+    with open('models/item_encoder.pkl', 'rb') as f:
+        item_encoder = pickle.load(f)
+except Exception:
+    print("Warning: Yield models not found.")
 
 class SoilData(BaseModel):
     N: float
@@ -179,6 +192,28 @@ async def predict_risk(data: RiskData):
         totalRiskScore = min(100, max(0, weatherRisk + diseaseRisk + priceRisk))
         
         return {"success": True, "riskScore": totalRiskScore, "variance": variance_val}
+    except Exception as e:
+        return {"success": False, "message": str(e)}
+
+class YieldData(BaseModel):
+    state: str
+    crop: str
+    rainfall: float
+    pesticides: float
+    temperature: float
+
+@app.post("/predict_yield")
+async def predict_yield(data: YieldData):
+    if yield_model is None or area_encoder is None or item_encoder is None:
+        return {"success": False, "message": "Yield models not loaded. Make sure models/yield_model.pkl exists."}
+    try:
+        area_encoded = area_encoder.transform([data.state])[0] if data.state in area_encoder.classes_ else 0
+        item_encoded = item_encoder.transform([data.crop])[0] if data.crop in item_encoder.classes_ else 0
+        
+        features = np.array([[area_encoded, item_encoded, data.rainfall, data.pesticides, data.temperature]])
+        prediction = yield_model.predict(features)[0]
+        
+        return {"success": True, "yield_hg_ha": float(prediction)}
     except Exception as e:
         return {"success": False, "message": str(e)}
 
