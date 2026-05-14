@@ -59,7 +59,8 @@ function DiseaseDetect() {
             }, 1200);
         } catch (err) {
             console.error('Detection Error:', err);
-            alert('Detection failed. Please make sure the ML server is running.');
+            const errorMsg = err.response?.data?.message || 'Detection failed. Please check your internet and make sure the server is running.';
+            alert(errorMsg);
             setLoading(false);
         }
     };
