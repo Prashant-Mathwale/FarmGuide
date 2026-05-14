@@ -88,8 +88,16 @@ const getWeatherForecast = async (req, res) => {
         });
 
     } catch (error) {
-        console.error("Weather API Error:", error.message);
-        res.status(500).json({ success: false, message: 'Failed to fetch weather data.' });
+        if (error.response) {
+            console.error("Weather API Error Details:", {
+                status: error.response.status,
+                data: error.response.data,
+                url: error.config.url
+            });
+        } else {
+            console.error("Weather API Error:", error.message);
+        }
+        res.status(500).json({ success: false, message: 'Failed to fetch weather data. ' + (error.response?.data?.message || '') });
     }
 };
 
