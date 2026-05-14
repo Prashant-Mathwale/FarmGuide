@@ -31,7 +31,7 @@ const getCropRecommendation = async (req, res) => {
         // Call the Python FastAPI microservice
         const mlUrl = process.env.ML_SERVICE_URL || 'http://127.0.0.1:8000';
         console.log(`[ML] Requesting Crop Recommendation from: ${mlUrl}/predict_crop`);
-        const pythonApiRes = await axios.post(`${mlUrl}/predict_crop`, payload);
+        const pythonApiRes = await axios.post(`${mlUrl}/predict_crop`, payload, { timeout: 120000 });
 
         if (!pythonApiRes.data.success) {
             throw new Error(pythonApiRes.data.message || 'Failed to get prediction from ML server');
@@ -79,6 +79,7 @@ const detectDisease = async (req, res) => {
                 ...formHeaders,
                 'Content-Length': contentLength
             },
+            timeout: 120000
         });
 
         if (!pythonApiRes.data.success) {
@@ -158,7 +159,7 @@ const predictPest = async (req, res) => {
 const predictIrrigation = async (req, res) => {
     try {
         const mlUrl = process.env.ML_SERVICE_URL || 'http://127.0.0.1:8000';
-        const pythonApiRes = await axios.post(`${mlUrl}/predict_irrigation`, req.body);
+        const pythonApiRes = await axios.post(`${mlUrl}/predict_irrigation`, req.body, { timeout: 120000 });
 
         if (!pythonApiRes.data.success) {
             throw new Error(pythonApiRes.data.message || 'Failed to get irrigation prediction');
@@ -174,7 +175,7 @@ const predictIrrigation = async (req, res) => {
 const predictYield = async (req, res) => {
     try {
         const mlUrl = process.env.ML_SERVICE_URL || 'http://127.0.0.1:8000';
-        const pythonApiRes = await axios.post(`${mlUrl}/predict_yield`, req.body);
+        const pythonApiRes = await axios.post(`${mlUrl}/predict_yield`, req.body, { timeout: 120000 });
 
         if (!pythonApiRes.data.success) {
             throw new Error(pythonApiRes.data.message || 'Failed to get yield prediction');
