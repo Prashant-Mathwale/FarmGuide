@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Droplets, ThermometerSun, Sprout, Wind, Calendar, AlertTriangle, CheckCircle2 } from 'lucide-react';
-import axios from 'axios';
+import api from '../services/api';
 
 function Irrigation() {
     const [formData, setFormData] = useState({
@@ -27,7 +27,7 @@ function Irrigation() {
         setResult(null);
 
         try {
-            const res = await axios.post('http://127.0.0.1:8000/predict_irrigation', {
+            const res = await api.post('/ml/irrigation-predict', {
                 cropType: formData.cropType,
                 cropDays: parseInt(formData.cropDays),
                 soilMoisture: parseFloat(formData.soilMoisture),

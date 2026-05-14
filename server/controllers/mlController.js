@@ -135,8 +135,6 @@ const detectDisease = async (req, res) => {
 const predictPest = async (req, res) => {
     try {
         const payload = req.body;
-        
-        // Call the Python FastAPI microservice
         const mlUrl = process.env.ML_SERVICE_URL || 'http://127.0.0.1:8000';
         const pythonApiRes = await axios.post(`${mlUrl}/predict_pest`, payload);
 
@@ -155,4 +153,36 @@ const predictPest = async (req, res) => {
     }
 };
 
-module.exports = { getCropRecommendation, detectDisease, predictPest };
+const predictIrrigation = async (req, res) => {
+    try {
+        const mlUrl = process.env.ML_SERVICE_URL || 'http://127.0.0.1:8000';
+        const pythonApiRes = await axios.post(`${mlUrl}/predict_irrigation`, req.body);
+
+        if (!pythonApiRes.data.success) {
+            throw new Error(pythonApiRes.data.message || 'Failed to get irrigation prediction');
+        }
+
+        res.json(pythonApiRes.data);
+    } catch (error) {
+        console.error("Irrigation Prediction Error:", error.message);
+        res.status(500).json({ success: false, message: 'Irrigation prediction failed. ' + error.message });
+    }
+};
+
+const predictYield = async (req, res) => {
+    try {
+        const mlUrl = process.env.ML_SERVICE_URL || 'http://127.0.0.1:8000';
+        const pythonApiRes = await axios.post(`${mlUrl}/predict_yield`, req.body);
+
+        if (!pythonApiRes.data.success) {
+            throw new Error(pythonApiRes.data.message || 'Failed to get yield prediction');
+        }
+
+        res.json(pythonApiRes.data);
+    } catch (error) {
+        console.error("Yield Prediction Error:", error.message);
+        res.status(500).json({ success: false, message: 'Yield prediction failed. ' + error.message });
+    }
+};
+
+module.exports = { getCropRecommendation, detectDisease, predictPest, predictIrrigation, predictYield };

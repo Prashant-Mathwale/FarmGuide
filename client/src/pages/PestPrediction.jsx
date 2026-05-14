@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AlertTriangle, Leaf, Thermometer, Droplets, CloudRain, Wind, FlaskConical, CheckCircle2, XCircle, ChevronDown, ShieldAlert } from 'lucide-react';
+import api from '../services/api';
 
 const PEST_DATA = {
   wheat: {
@@ -107,16 +108,46 @@ export default function PestPrediction() {
     setLoading(true);
     setResults(null);
 
-    await new Promise((res) => setTimeout(res, 1600));
+    try {
+      const payload = {
+        Temperature_C: parseFloat(form.temperature),
+        Humidity_percent: parseFloat(form.humidity),
+        Rainfall_mm: parseFloat(form.rainfall),
+        Soil_pH: 7.0, // Default or could be added to form
+        Nitrogen_N: 80,
+        Phosphorus_P: 40,
+        Potassium_K: 40,
+        Crop_Type: form.crop,
+        Location: "Gujarat" // Default
+      };
 
-    const temp = parseFloat(form.temperature);
-    const hum = parseFloat(form.humidity);
-    const condKey = getConditionKey(temp, hum);
-    const cropData = PEST_DATA[form.crop] || PEST_DATA.wheat;
-    const pests = cropData[condKey] || cropData['warm_wet'];
+      const res = await api.post('/ml/pest-predict', payload);
+      
+      const temp = parseFloat(form.temperature);
+      const hum = parseFloat(form.humidity);
+      const condKey = getConditionKey(temp, hum);
+      const cropData = PEST_DATA[form.crop] || PEST_DATA.wheat;
+      const pests = cropData[condKey] || cropData['warm_wet'];
 
-    setResults({ pests, condition: condKey, crop: form.crop });
-    setLoading(false);
+      // Merge ML results with UI data
+      setResults({ 
+        pests, 
+        condition: condKey, 
+        crop: form.crop,
+        mlProbability: res.data.probability 
+      });
+    } catch (err) {
+      console.error("ML Pest Error:", err);
+      // Fallback to local logic if ML fails
+      const temp = parseFloat(form.temperature);
+      const hum = parseFloat(form.humidity);
+      const condKey = getConditionKey(temp, hum);
+      const cropData = PEST_DATA[form.crop] || PEST_DATA.wheat;
+      const pests = cropData[condKey] || cropData['warm_wet'];
+      setResults({ pests, condition: condKey, crop: form.crop });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const conditionLabel = {
@@ -332,6 +363,12 @@ export default function PestPrediction() {
                     <p className="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Condition Detected</p>
                     <p className="text-lg font-headline font-bold text-on-surface mt-1">{conditionLabel[results.condition]}</p>
                   </div>
+                  {results.mlProbability && (
+                    <div className="text-center px-4 border-l border-r border-white/10">
+                      <p className="text-xs text-on-surface-variant uppercase font-bold tracking-tighter">Outbreak Prob.</p>
+                      <p className={`text-xl font-black ${results.mlProbability > 0.6 ? 'text-red-400' : 'text-green-400'}`}>{(results.mlProbability * 100).toFixed(1)}%</p>
+                    </div>
+                  )}
                   <div className="text-right">
                     <p className="text-xs text-on-surface-variant">Pests identified</p>
                     <p className="text-3xl font-black text-orange-400">{results.pests.length}</p>
