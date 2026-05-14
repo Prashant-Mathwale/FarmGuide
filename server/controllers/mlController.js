@@ -30,6 +30,7 @@ const getCropRecommendation = async (req, res) => {
 
         // Call the Python FastAPI microservice
         const mlUrl = process.env.ML_SERVICE_URL || 'http://127.0.0.1:8000';
+        console.log(`[ML] Requesting Crop Recommendation from: ${mlUrl}/predict_crop`);
         const pythonApiRes = await axios.post(`${mlUrl}/predict_crop`, payload);
 
         if (!pythonApiRes.data.success) {
@@ -72,6 +73,7 @@ const detectDisease = async (req, res) => {
 
         // Call the Python FastAPI microservice
         const mlUrl = process.env.ML_SERVICE_URL || 'http://127.0.0.1:8000';
+        console.log(`[ML] Requesting Disease Detection from: ${mlUrl}/predict_disease`);
         const pythonApiRes = await axios.post(`${mlUrl}/predict_disease`, form, {
             headers: {
                 ...formHeaders,

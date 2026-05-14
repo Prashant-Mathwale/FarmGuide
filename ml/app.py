@@ -24,6 +24,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy", "service": "FarmGuide ML Microservice"}
+
 price_df = None
 try:
     price_df = pd.read_csv('dataset/Agriculture_price_dataset.csv')
