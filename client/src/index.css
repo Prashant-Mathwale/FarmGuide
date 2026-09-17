@@ -50,11 +50,11 @@ html, body, #root {
 
 /* Glassmorphism Classes */
 .glass-panel, .glass-card {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   border-radius: 1.5rem; /* common rounded look, though classes usually override with rounded-3xl/2xl */
 }
 
@@ -115,14 +115,18 @@ html, body, #root {
 /* Redesigned Inputs */
 .input-field {
   width: 100%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--color-on-surface);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
   border-radius: 0.75rem;
   padding: 0.875rem 1.25rem;
   font-size: 0.875rem;
   transition: all 0.3s ease;
   outline: none;
+}
+
+.input-field::placeholder {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .input-field:focus {

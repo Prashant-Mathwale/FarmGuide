@@ -180,33 +180,57 @@ function Fertilizer() {
                                     </div>
 
                                     <div className="space-y-4">
-                                        <div className="glass-panel p-5 bg-pink-900/10 border border-pink-500/20 flex justify-between items-center group hover:bg-pink-900/20 transition-all">
+                                        <div className="glass-panel p-5 bg-pink-900/20 border border-pink-500/30 flex justify-between items-center group hover:bg-pink-900/30 transition-all shadow-[0_0_15px_rgba(219,39,119,0.1)]">
                                             <div>
-                                                <h4 className="text-lg font-bold text-pink-300 tracking-wide flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-pink-500"></div> UREA <span className="text-xs text-slate-400 ml-2 font-medium">(46% Nitrogen)</span></h4>
-                                                <p className="text-sm text-slate-400 mt-1">Standard nitrogen supplier. Do not over-apply.</p>
+                                                <h4 className="text-xl font-black text-pink-400 tracking-wider flex items-center gap-2">
+                                                    <div className="w-2.5 h-2.5 rounded-full bg-pink-500 shadow-[0_0_8px_#ec4899]"></div> 
+                                                    UREA 
+                                                    <span className="text-xs text-pink-500/70 ml-2 font-bold">(46% Nitrogen)</span>
+                                                </h4>
+                                                <p className="text-sm font-medium text-white bg-pink-500/20 px-2 py-0.5 rounded mt-2 inline-block border border-pink-500/20">
+                                                    Standard nitrogen supplier. Do not over-apply.
+                                                </p>
                                             </div>
                                             <div className="text-right">
-                                                <p className="text-3xl font-black text-white">{result.urea} <span className="text-lg text-pink-500">kg/ha</span></p>
+                                                <p className="text-4xl font-black text-white drop-shadow-[0_0_10px_rgba(219,39,119,0.5)]">
+                                                    {result.urea} <span className="text-xl text-pink-500 font-bold uppercase">kg/ha</span>
+                                                </p>
                                             </div>
                                         </div>
                                         
-                                        <div className="glass-panel p-5 bg-emerald-900/10 border border-emerald-500/20 flex justify-between items-center group hover:bg-emerald-900/20 transition-all">
+                                        <div className="glass-panel p-5 bg-emerald-900/20 border border-emerald-500/30 flex justify-between items-center group hover:bg-emerald-900/30 transition-all shadow-[0_0_15px_rgba(16,185,129,0.1)]">
                                             <div>
-                                                <h4 className="text-lg font-bold text-emerald-300 tracking-wide flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-emerald-500"></div> DAP <span className="text-xs text-slate-400 ml-2 font-medium">(18% N, 46% P)</span></h4>
-                                                <p className="text-sm text-slate-400 mt-1">Di-ammonium Phosphate. Primary pre-plant source of P.</p>
+                                                <h4 className="text-xl font-black text-emerald-400 tracking-wider flex items-center gap-2">
+                                                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]"></div> 
+                                                    DAP 
+                                                    <span className="text-xs text-emerald-500/70 ml-2 font-bold">(18% N, 46% P)</span>
+                                                </h4>
+                                                <p className="text-sm font-medium text-white bg-emerald-500/20 px-2 py-0.5 rounded mt-2 inline-block border border-emerald-500/20">
+                                                    Di-ammonium Phosphate. Primary pre-plant source of P.
+                                                </p>
                                             </div>
                                             <div className="text-right">
-                                                <p className="text-3xl font-black text-white">{result.dap} <span className="text-lg text-emerald-500">kg/ha</span></p>
+                                                <p className="text-4xl font-black text-white drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]">
+                                                    {result.dap} <span className="text-xl text-emerald-500 font-bold uppercase">kg/ha</span>
+                                                </p>
                                             </div>
                                         </div>
 
-                                        <div className="glass-panel p-5 bg-indigo-900/10 border border-indigo-500/20 flex justify-between items-center group hover:bg-indigo-900/20 transition-all">
+                                        <div className="glass-panel p-5 bg-indigo-900/20 border border-indigo-500/30 flex justify-between items-center group hover:bg-indigo-900/30 transition-all shadow-[0_0_15px_rgba(99,102,241,0.1)]">
                                             <div>
-                                                <h4 className="text-lg font-bold text-indigo-300 tracking-wide flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-indigo-500"></div> MOP <span className="text-xs text-slate-400 ml-2 font-medium">(60% Potassium)</span></h4>
-                                                <p className="text-sm text-slate-400 mt-1">Muriate of Potash. Enhances stress and disease resistance.</p>
+                                                <h4 className="text-xl font-black text-indigo-400 tracking-wider flex items-center gap-2">
+                                                    <div className="w-2.5 h-2.5 rounded-full bg-indigo-500 shadow-[0_0_8px_#6366f1]"></div> 
+                                                    MOP 
+                                                    <span className="text-xs text-indigo-500/70 ml-2 font-bold">(60% Potassium)</span>
+                                                </h4>
+                                                <p className="text-sm font-medium text-white bg-indigo-500/20 px-2 py-0.5 rounded mt-2 inline-block border border-indigo-500/20">
+                                                    Muriate of Potash. Enhances stress and disease resistance.
+                                                </p>
                                             </div>
                                             <div className="text-right">
-                                                <p className="text-3xl font-black text-white">{result.mop} <span className="text-lg text-indigo-500">kg/ha</span></p>
+                                                <p className="text-4xl font-black text-white drop-shadow-[0_0_10px_rgba(99,102,241,0.5)]">
+                                                    {result.mop} <span className="text-xl text-indigo-500 font-bold uppercase">kg/ha</span>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>

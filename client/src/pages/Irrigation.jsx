@@ -62,7 +62,7 @@ function Irrigation() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="text-slate-400 text-lg"
+                    className="text-white/80 text-lg"
                 >
                     AI-powered watering schedules based on hyper-local soil and weather telemetry.
                 </motion.p>
@@ -81,9 +81,9 @@ function Irrigation() {
                             
                             {/* Crop Type */}
                             <div className="col-span-1 md:col-span-2">
-                                <label className="block text-xs font-bold text-slate-400 mb-1 uppercase tracking-wider">Crop Type Tracker</label>
+                                <label className="block text-xs font-bold text-white mb-1 uppercase tracking-wider">Crop Type Tracker</label>
                                 <div className="relative">
-                                    <Sprout className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                                    <Sprout className="absolute left-4 top-1/2 -translate-y-1/2 text-cyan-300" size={18} />
                                     <input 
                                         type="text" 
                                         name="cropType"
@@ -98,9 +98,9 @@ function Irrigation() {
 
                             {/* Crop Age */}
                             <div>
-                                <label className="block text-xs font-bold text-slate-400 mb-1 uppercase tracking-wider">Crop Age (Days)</label>
+                                <label className="block text-xs font-bold text-white mb-1 uppercase tracking-wider">Crop Age (Days)</label>
                                 <div className="relative">
-                                    <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                                    <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-cyan-300" size={18} />
                                     <input 
                                         type="number" 
                                         name="cropDays"
@@ -115,9 +115,9 @@ function Irrigation() {
 
                             {/* Soil Moisture */}
                             <div>
-                                <label className="block text-xs font-bold text-slate-400 mb-1 uppercase tracking-wider">Soil Moisture Index</label>
+                                <label className="block text-xs font-bold text-white mb-1 uppercase tracking-wider">Soil Moisture Index</label>
                                 <div className="relative">
-                                    <Droplets className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                                    <Droplets className="absolute left-4 top-1/2 -translate-y-1/2 text-cyan-300" size={18} />
                                     <input 
                                         type="number" 
                                         name="soilMoisture"
@@ -132,9 +132,9 @@ function Irrigation() {
 
                             {/* Temperature */}
                             <div>
-                                <label className="block text-xs font-bold text-slate-400 mb-1 uppercase tracking-wider">Temperature (°C)</label>
+                                <label className="block text-xs font-bold text-white mb-1 uppercase tracking-wider">Temperature (°C)</label>
                                 <div className="relative">
-                                    <ThermometerSun className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                                    <ThermometerSun className="absolute left-4 top-1/2 -translate-y-1/2 text-cyan-300" size={18} />
                                     <input 
                                         type="number" 
                                         name="temperature"
@@ -149,9 +149,9 @@ function Irrigation() {
 
                             {/* Humidity */}
                             <div>
-                                <label className="block text-xs font-bold text-slate-400 mb-1 uppercase tracking-wider">Humidity (%)</label>
+                                <label className="block text-xs font-bold text-white mb-1 uppercase tracking-wider">Humidity (%)</label>
                                 <div className="relative">
-                                    <Wind className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                                    <Wind className="absolute left-4 top-1/2 -translate-y-1/2 text-cyan-300" size={18} />
                                     <input 
                                         type="number" 
                                         name="humidity"
@@ -219,8 +219,8 @@ function Irrigation() {
 
                     {!result && !error && !loading && (
                         <div className="glass-panel p-8 h-full flex flex-col justify-center items-center text-center opacity-50">
-                            <Droplets size={48} className="text-slate-500 mb-4" />
-                            <p className="text-slate-400">Awaiting soil telemetry data to begin analysis.</p>
+                            <Droplets size={48} className="text-white/50 mb-4" />
+                            <p className="text-white/60">Awaiting soil telemetry data to begin analysis.</p>
                         </div>
                     )}
                 </div>
